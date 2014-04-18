@@ -1,23 +1,3 @@
 <?= $this->partial('/common/header.phtml', $this) ?>
-<form id="form">
-    GitHub URL: <input type="text" placeholder="GeoJSON, TopoJSON or CSV URL" id="form-text" class="input-xlarge">
-    <button type="submit">Go</button>
-</form>
-<h3>Example:</h3>
-<ol>
-    <li>GeoJSON(with polygon): <a href="/ronnywang/twgeojson/blob/master/twvillage2010.json">/ronnywang/twgeojson/blob/master/twvillage2010.json</a></li>
-    <li>GeoJSON(with linestring): <a href="/ronnywang/data.taipei.gov.tw/blob/master/geo/臺北市聯營公車路線圖/allroutetwd67.json">/ronnywang/data.taipei.gov.tw/blob/master/geo/臺北市聯營公車路線圖/allroutetwd67.json</a></li>
-    <li>TopoJSON: <a href="/g0v/twgeojson/blob/master/twVillage1982.topo.json">/g0v/twgeojson/blob/master/twVillage1982.topo.json</a></li>
-    <li>CSV: <a href="/ronnywang/worldbank/blob/master/economic/ny.gdp.mktp.kd.zg_Indicator_en_csv_v2.csv">/ronnywang/worldbank/blob/master/economic/ny.gdp.mktp.kd.zg_Indicator_en_csv_v2.csv</a></li>
-    <li>CSV + GeoJSON = ColorMap: <a href="/ronnywang/worldbank/blob/master/economic/ny.gdp.mktp.kd.zg_Indicator_en_csv_v2.csv">World Bank GDP CSV</a> + <a href="/ronnywang/worldbank/blob/master/worldbank.json">World Bank World Map</a></li> = <a href="/ronnywang/worldbank/blob/master/economic/ny.gdp.mktp.kd.zg_Indicator_en_csv_v2.json">GDP Color Map</a></li>
-    <li>CSV with Lat/Lng column = CSVMap: <a href="/ronnywang/maps.nlsc.gov.tw/blob/master/landmark/landmark.csv">Taiwan LandMark CSV</a> = <a href="/ronnywang/sandbox/blob/master/20131115/github-map-1.json">Taiwan Land Mark CSV Map</a>
-</ol>
-<script>
-$('#form').submit(function(e){
-    e.preventDefault();
-    var url = $('#form-text').val();
-    var matches = url.match('//github\.com/(.*)');
-    document.location = '/' + matches[1];
-});
-</script>
+<h3>Test</h3>
 <?= $this->partial('/common/footer.phtml', $this) ?>
