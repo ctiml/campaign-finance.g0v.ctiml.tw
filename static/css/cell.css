@@ -4,3 +4,7 @@
 a:hover {
     cursor: pointer;
 }
+.tip {
+    color: #bbb;
+    padding-left: 10px;
+}
