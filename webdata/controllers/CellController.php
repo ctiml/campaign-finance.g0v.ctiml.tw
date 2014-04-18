@@ -8,6 +8,9 @@ class CellController extends Pix_Controller
         $x = rand(2, 21);
         $y = rand(1, 9);
         $this->view->cellimg = "http://campaign-finance.g0v.ronny.tw/api/getcellimage/" . $page . "/" . $x . "/" . $y . ".png";
+        $this->view->page = $page;
+        $this->view->x = $x;
+        $this->view->y = $y;
     }
 
     public function fillAction()

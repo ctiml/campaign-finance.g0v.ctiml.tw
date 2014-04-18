@@ -2,10 +2,13 @@
 <div class="cell">
     <div class="cell-image"><img src="<?= $this->cellimg ?>" /></div>
     <h4>請填入圖片中的文字或數字</h4>
-    <div class="cell-info"></div>
-    <input class="" type="text" name="ans" /><br>
+    <div class="cell-info" data-page="<?= $this->page ?>" data-x="<?= $this->x ?>" data-y="<?= $this->y ?>">
+        <?= $this->page . " 頁, X => " . $this->x . ", Y => " . $this->y ?>
+    </div>
+    <input id="ans" class="" type="text" name="ans" /><br>
     <input id="submit" class="" type="submit" value="送出" />
     <input id="reset" class="" type="button" value="重來" />
+    <div class="msg"></div>
 </div>
 <script src="/static/js/cell.js"></script>
 <link rel="stylesheet" href="/static/css/cell.css">

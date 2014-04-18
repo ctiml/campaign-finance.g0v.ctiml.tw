@@ -8,7 +8,7 @@ class ApiController extends Pix_Controller
         $page = intval($page);
         $x = intval($x);
         $y = intval($y);
-        $ans = $_GET['ans'];
+        $ans = $_POST['ans'];
         
         $values = array('page' => $page, 'x' => $x, 'y' => $y);
         $cell = Cell::search($values)->first();
