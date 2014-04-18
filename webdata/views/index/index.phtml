@@ -1,9 +1,19 @@
 <?= $this->partial('/common/header.phtml', $this) ?>
 <div class="container">
-    <div class="hero-unit">
+    <div class="jumbotron">
         <h2>政治獻金數位化</h2>
-        <span>鄉民一起來</span>
+        <span class="lead">鄉民一起來</span>
         <a class="btn btn-primary btn-medium" href="/cell">+1 »</a>
+    </div>
+    <hr>
+    <div class="row-fluid">
+        <h3>API</h3>
+        <h5>取得所有欄位的值</h5>
+        <code>http://campaign-finance.g0v.ctiml.tw/api/getcells</code>
+        <h5>取得指定頁所有欄位的值</h5>
+        <code>http://campaign-finance.g0v.ctiml.tw/api/getcells/1100</code>
+        <h5>取得單一欄位的值</h5>
+        <code>http://campaign-finance.g0v.ctiml.tw/api/getcellvalue/1100/8/1</code>
     </div>
 </div>
 <?= $this->partial('/common/footer.phtml', $this) ?>
