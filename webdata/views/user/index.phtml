@@ -1,0 +1,14 @@
+<?php
+$this->body_class = 'user_index';
+$this->params = array(
+    'user' => $this->user,
+);
+?>
+<?= $this->partial('common/header.phtml', $this); ?>
+<h1>
+    <a href="/<?= urlencode($this->user) ?>"><?= $this->escape($this->user) ?></a>
+</h1>
+<hr>
+<ol id="repo-list">
+</ol>
+<?= $this->partial('common/footer.phtml', $this); ?>

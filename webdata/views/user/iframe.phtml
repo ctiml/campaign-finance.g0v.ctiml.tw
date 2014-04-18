@@ -1,0 +1,100 @@
+<?php
+$this->body_class = 'user_iframe';
+$this->params = array(
+    'user' => $this->user,
+    'repository' => $this->repository,
+    'path' => $this->path,
+    'branch' => $this->branch,
+);
+$this->set = $set = DataSet::findByOptions($this->params);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Github Map+</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script src="/static/main.js?v=<?= getenv('STATIC_VERSION') ?>"></script>
+<script type="text/javascript">
+main.params = <?= json_encode($this->params) ?>;
+<?php if (getenv('GOOGLEANALYTICS_ACCOUNT')) { ?>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', <?= json_encode(getenv('GOOGLEANALYTICS_ACCOUNT')) ?>]);
+_gaq.push(['_trackPageview']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+<?php } ?>
+</script>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#data-tab-map {
+  height: 100%;
+}
+
+@media print {
+  html, body {
+    height: auto;
+  }
+
+  #data-tab-map {
+    height: 650px;
+  }
+}
+
+#panel {
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  margin-left: -180px;
+  z-index: 5;
+  background-color: #fff;
+  padding: 5px;
+  border: 1px solid #999;
+}
+</style>
+</head>
+<body class="<?= $this->body_class ?>">
+<?php if ($this->set->getEAV('data_type') == 'geojson') { ?>
+<div 
+    id="data-tab-map"
+    class="data-tab"
+    data-boundary="<?= $this->escape($this->set->getEAV('boundary')) ?>"
+    data-wms-url="<?= getenv('CDN_PREFIX') ?>/wms?Request=GetMap&Layers=<?= urlencode($this->set->getLayerID()) ?>"
+    data-clickzone-url="<?= getenv('CDN_PREFIX') ?>/wms?Request=GetClickZone&Layers=<?= urlencode($this->set->getLayerID()) ?>"
+    data-click-url="/user/getdatafrompoint/?layer=<?= urlencode($this->set->getLayerID()) ?>"
+></div>
+<?php } elseif ($this->set->getEAV('data_type') == 'csvmap') { ?>
+<div 
+    id="data-tab-map"
+    class="data-tab"
+    data-boundary="<?= $this->escape($this->set->getEAV('boundary')) ?>"
+    data-wms-url="<?= getenv('CDN_PREFIX') ?>/wms?Request=GetMap&Layers=<?= urlencode($this->set->getLayerID()) ?>"
+    data-clickzone-url="<?= getenv('CDN_PREFIX') ?>/wms?Request=GetClickZone&Layers=<?= urlencode($this->set->getLayerID()) ?>"
+    data-click-url="/user/getdatafrompoint/?layer=<?= urlencode($this->set->getLayerID()) ?>"
+></div>
+<?php } elseif ($this->set->getEAV('data_type') == 'colormap') { ?>
+<?php
+$map_set = DataSet::find($this->set->getEAV('map_from'));
+?>
+<div 
+    id="data-tab-map"
+    class="data-tab"
+    data-boundary="<?= $this->escape($map_set->getEAV('boundary')) ?>"
+    data-wms-set="<?= $this->escape($this->set->getWmsSet()) ?>"
+    data-clickzone-url="<?= getenv('CDN_PREFIX') ?>/wms?Request=GetClickZone&Layers=<?= urlencode($map_set->getLayerID()) ?>"
+    data-click-url="/user/getdatafrompoint/?layer=<?= urlencode($this->set->getLayerID()) ?>"
+    data-opacity="0.5"
+></div>
+<?php } ?>
+</body>
+</html>

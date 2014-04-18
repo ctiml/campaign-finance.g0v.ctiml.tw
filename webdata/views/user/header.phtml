@@ -1,0 +1,15 @@
+<h1>
+    <a href="/<?= urlencode($this->user) ?>"><?= $this->escape($this->user) ?></a> /
+    <a href="/<?= urlencode($this->user) ?>/<?= urlencode($this->repository) ?>"><?= $this->escape($this->repository) ?></a>
+</h1>
+<hr>
+<a href="/<?= urlencode($this->user) ?>/<?= urlencode($this->repository) ?>"><?= $this->escape($this->repository) ?></a>
+<?php $pathes = array(); foreach (explode('/', trim($this->path, '/')) as $term) { $pathes[] = $term; ?>
+<?php if (!$term) { continue; } ?>
+<?php if ($this->path == implode('/', $pathes)) { ?>
+/ <a href="/<?= urlencode($this->user) ?>/<?= urlencode($this->repository) ?>/blob/master/<?= $this->escape(implode('/', $pathes)) ?>"><?= $this->escape($pathes[count($pathes) - 1]) ?></a>
+<?php } else { ?>
+/ <a href="/<?= urlencode($this->user) ?>/<?= urlencode($this->repository) ?>/tree/master/<?= $this->escape(implode('/', $pathes)) ?>"><?= $this->escape($pathes[count($pathes) - 1]) ?></a>
+<?php } ?>
+<?php } ?>
+

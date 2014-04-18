@@ -1,0 +1,30 @@
+<?php
+$this->body_class = 'user_blob';
+$this->params = array(
+    'user' => $this->user,
+    'repository' => $this->repository,
+    'path' => $this->path,
+    'branch' => $this->branch,
+);
+$set = DataSet::findByOptions($this->params);
+?>
+<?= $this->partial('common/header.phtml', $this); ?>
+<?= $this->partial('user/header.phtml', $this) ?>
+<hr>
+<button 
+    id="btn-import-csv"
+    data-wording-importing="Importing..."
+    data-import-link="/user/importcsv?user=<?= urlencode($this->user) ?>&repository=<?= urlencode($this->repository) ?>&path=<?= urlencode($this->path) ?>&branch=<?= urlencode($this->branch) ?>">Import</button>
+<a href="https://github.com/<?= urlencode($this->user) ?>/<?= urlencode($this->repository) ?>/blob/<?= urlencode($this->branch) ?>/<?= $this->escape($this->path) ?>" target="_blank">Github Source</a>
+<?php if ($set and $set->getEAV('data_type') == 'geojson') { ?>
+<?= $this->partial('/user/blob_geojson.phtml', array('set' => $set)) ?>
+<?php } elseif ($set and $set->getEAV('data_type') == 'csvmap') { ?>
+<?= $this->partial('/user/blob_csvmap.phtml', array('set' => $set)) ?>
+<?php } elseif ($set and $set->getEAV('data_type') == 'colormap') { ?>
+<?= $this->partial('/user/blob_colormap.phtml', array('set' => $set)) ?>
+<?php } elseif ($set) { ?>
+<?= $this->partial('/user/blob_csv.phtml', array('set' => $set)) ?>
+<?php } else { ?>
+<pre id="blob-content" class="pre"></pre>
+<?php } ?>
+<?= $this->partial('common/footer.phtml', $this); ?>
