@@ -6,7 +6,8 @@
     <a id="next">下一張</a>
     <span class="tip">Enter: 送出 / shift+Enter: 下一張</span>
     <div class="cell-info" data-page="<?= $this->page ?>" data-x="<?= $this->x ?>" data-y="<?= $this->y ?>">
-        <?= "第 " . $this->page . " 頁 (" . $this->x . ", " . $this->y . ")" ?>
+        <span><?= "第 " . $this->page . " 頁 (" . $this->x . ", " . $this->y . ")" ?></span>
+        <span><?= " 已經有人填寫了: " . $this->cell->ans ?></span>
     </div>
     <div class="cell-image"><img src="<?= $this->cellimg ?>" /></div>
 </div>
