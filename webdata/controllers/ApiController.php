@@ -37,4 +37,26 @@ class ApiController extends Pix_Controller
             return $this->json(array('error' => false, 'value' => $cell->ans));
         }
     }
+
+    public function getcellsAction()
+    {
+        list(, /*api*/, /*getcells*/, $page) = explode('/', $this->getURI());
+
+        $values = array();
+        if ($page != null) {
+            $values = array('page' => intval($page));
+        }
+
+        $cells = Cell::search($values)->order('page, x, y ASC');
+        $json = array();
+        foreach ($cells as $cell) {
+            array_push($json, array(
+                'page' => $cell->page,
+                'x' => $cell->x,
+                'y' => $cell->y,
+                'ans' => $cell->ans
+            ));
+        }
+        return $this->json($json);
+    }
 }
