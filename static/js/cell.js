@@ -29,6 +29,9 @@ $(document).ready(function(){
 
   $('#ans').keypress(function(e) {
     if (e.which == 13) {
+      if (e.shiftKey) {
+        window.location.reload();
+      }
       e.preventDefault();
       submitAnswer();
     }
