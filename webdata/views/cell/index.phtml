@@ -1,0 +1,12 @@
+<?= $this->partial('/common/header.phtml', $this) ?>
+<div class="cell">
+    <div class="cell-image"><img src="<?= $this->cellimg ?>" /></div>
+    <h4>請填入圖片中的文字或數字</h4>
+    <div class="cell-info"></div>
+    <input class="" type="text" name="ans" /><br>
+    <input id="submit" class="" type="submit" value="送出" />
+    <input id="reset" class="" type="button" value="重來" />
+</div>
+<script src="/static/js/cell.js"></script>
+<link rel="stylesheet" href="/static/css/cell.css">
+<?= $this->partial('/common/footer.phtml', $this) ?>
