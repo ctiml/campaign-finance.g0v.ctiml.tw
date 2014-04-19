@@ -71,7 +71,13 @@ class ApiController extends Pix_Controller
 
     public function getcellcountAction()
     {
-        return $this->jsonp(array('count' => count(Cell::search(1))), $_GET['callback']);
+        list($count, $time) = explode('-', KeyValue::get('count'));
+        if ($time == time()) {
+            return $this->jsonp(array('count' => $count), $_GET['callback']);
+        }
+        $count = count(Cell::search(1));
+        KeyValue::set('count', $count . '-' . time());
+        return $this->jsonp(array('count' => $count), $_GET['callback']);
     }
 
     protected function getrandom()
