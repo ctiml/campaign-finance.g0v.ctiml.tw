@@ -45,7 +45,7 @@ $(document).ready(function(){
       .text("")
       .append($('<span></span>').text("第 "+res.page+" 頁 ("+res.x+", "+res.y+" )"));
 
-      if (res.ans !== "") {
+      if (res.ans !== null) {
         $('.cell-info').append($('<span></span>').text(" 已經有人填寫了：").append($('<code></code>').text(res.ans)));
         $('.confirm').show();
       }

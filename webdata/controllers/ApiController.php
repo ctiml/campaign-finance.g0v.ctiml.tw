@@ -76,20 +76,47 @@ class ApiController extends Pix_Controller
 
     protected function getrandom()
     {
+        Pix_Table::enableLog(Pix_Table::LOG_QUERY);
         $page = rand(1, 2500);
         if (rand(1, 100) > 50) {
             $promotions = array_values(PagePromotion::search(1)->toArray());
-            $index = rand(0, count($promotions) - 1);
-            $page = $promotions[$index]['page'];
+            if (count($promotions) > 0) {
+                $index = rand(0, count($promotions) - 1);
+                $page = $promotions[$index]['page'];
+            }
         }
-        $x = rand(2, 21);
+        $page_info = PageInfo::find($page);
+
+        $x = rand(2, $page_info->row_count);
         $y = rand(2, 7);
 
-        $ans = "";
+        $ans = null;
 
         $cell = Cell::search(array('page' => $page, 'x' => $x, 'y' => $y))->first();
         if ($cell != NULL) {
             if (rand(1, 100) < 80) {
+                $cells = Cell::search(array('page'=>$page))->toArray();
+                $used_cells = array();
+                foreach ($cells as $cell_array) {
+                    $used_cells[intval($cell_array['x']) . '-' . intval($cell_array['y'])] = true;
+                }
+                foreach (range(2, $page_info->row_count) as $x) {
+                    foreach (range(2, 7) as $y) {
+                        if ($used_cells[$x . '-' . $y]) {
+                            continue;
+                        }
+                        return array($page, $x, $y, $ans);
+                    }
+                }
+                // page 滿了
+                if ($pp = PagePromotion::find($page)) {
+                    $pp->delete();
+                }
+                try {
+                    PageDone::insert(array('id' => $page, 'done_at' => time()));
+                } catch (Pix_Table_DuplicateException $e) {
+                }
+
                 return $this->getrandom();
             }
             $ans = $cell->ans;
