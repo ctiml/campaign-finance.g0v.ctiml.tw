@@ -5,7 +5,7 @@
         <span class="lead">鄉民一起來</span>
         <a class="btn btn-primary btn-medium" href="/cell">+1 »</a>
         <p></p>
-        <div>目前資料已經有 <?= $this->count ?> 筆</div>
+        <div>目前資料已經有 <span id="counter" class="lead"><?= $this->count ?></span> 筆</div>
     </div>
     <hr>
     <div class="row-fluid">
@@ -23,4 +23,5 @@
         <a href="http://ronnywang.pixnet.net/blog/post/40488349">抓出政治獻金掃描文件中的每一個欄位</a>
     </div>
 </div>
+<script src="/static/js/index.js"></script>
 <?= $this->partial('/common/footer.phtml', $this) ?>

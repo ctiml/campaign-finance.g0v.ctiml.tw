@@ -69,6 +69,11 @@ class ApiController extends Pix_Controller
         return $this->jsonp($json, $_GET['callback']);
     }
 
+    public function getcellcountAction()
+    {
+        return $this->jsonp(array('count' => count(Cell::search(1))), $_GET['callback']);
+    }
+
     protected function getrandom()
     {
         $page = rand(1, 2500);
