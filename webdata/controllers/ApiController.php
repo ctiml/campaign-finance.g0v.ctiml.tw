@@ -79,6 +79,7 @@ class ApiController extends Pix_Controller
     {
         Pix_Table::enableLog(Pix_Table::LOG_QUERY);
         $page = rand(1, 2637);
+        // 五成的機率優先推 PagePromotion 的 Table
         if (rand(1, 100) > 50) {
             $promotions = array_values(PagePromotion::search(1)->toArray());
             if (count($promotions) > 0) {
@@ -124,6 +125,11 @@ class ApiController extends Pix_Controller
         }
 
         return array($page, $x, $y, $ans);
+    }
+
+    public function getdonepagesAction()
+    {
+        return $this->jsonp(array_values(PageDone::search(1)->order('id asc')->toArray()), $_GET['callback']);
     }
 
     public function getrandomAction()
