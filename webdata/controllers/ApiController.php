@@ -78,7 +78,7 @@ class ApiController extends Pix_Controller
     protected function getrandom()
     {
         Pix_Table::enableLog(Pix_Table::LOG_QUERY);
-        $page = rand(1, 2500);
+        $page = rand(1, 2637);
         if (rand(1, 100) > 50) {
             $promotions = array_values(PagePromotion::search(1)->toArray());
             if (count($promotions) > 0) {
