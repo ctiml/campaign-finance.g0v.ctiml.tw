@@ -17,24 +17,47 @@ $(document).ready(function(){
 
     var url = ['/api/fillcell/', page, "/", x, "/", y].join("");
     $.post(url, { ans: ans }, function(res){
-      window.location.reload();
+      getRandomImage();
+      $('#submit').removeAttr('disabled');
     });
   };
 
+  var getRandomImage = function() {
+    $('#ans').val("").focus();
+    $('.cell-info').text("圖片載入中...");
+    $('.cell-image').html("");
+    
+    $.get('/api/getrandom', function(res) {
+      $('.cell-image').html($('<img></img>').attr('src', res.img_url));
+      $('.cell-info').data({
+        page: res.page,
+        x: res.x,
+        y: res.y,
+        ans: res.ans
+      })
+      .text("")
+      .append($('<span></span>').text("第 "+res.page+" 頁 ("+res.x+", "+res.y+" )"));
+
+      if (res.ans !== "") {
+        $('.cell-info').append($('<span></span>').text(" 已經有人填寫了：" + res.ans));
+      }
+
+    });
+  };
+  getRandomImage();
+
   $('#submit').click(submitAnswer);
 
-  $('#next').click(function(e) {
-    window.location.reload();
-  });
+  $('#next').click(getRandomImage);
 
   $('#ans').keypress(function(e) {
     if (e.which == 13) {
       if (e.shiftKey) {
-        window.location.reload();
+        getRandomImage();
       }
       e.preventDefault();
       submitAnswer();
     }
-  }).focus();
+  });
 
 });

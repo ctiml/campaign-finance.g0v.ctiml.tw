@@ -59,4 +59,28 @@ class ApiController extends Pix_Controller
         }
         return $this->jsonp($json, $_GET['callback']);
     }
+
+    public function getrandomAction()
+    {
+        $page = rand(1, 2500);
+        $x = rand(2, 21);
+        $y = rand(1, 9);
+        $ans = "";
+
+        $cell = Cell::search(array('page' => $page, 'x' => $x, 'y' => $y))->first();
+        if ($cell != NULL) {
+            $ans = $cell->ans;
+        }
+
+        $api_url = "http://" . strval(getenv(CAMPAIGN_FINANCE_RONNY)) . "/api/getcellimage";
+        $img_url = $api_url . "/" . $page . "/" . $x . "/" . $y . ".png";
+
+        return $this->json(array(
+            'img_url' => $img_url,
+            'page' => $page,
+            'x' => $x,
+            'y' => $y,
+            'ans' => $ans
+        ));
+    }
 }

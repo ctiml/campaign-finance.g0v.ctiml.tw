@@ -5,13 +5,8 @@
     <a id="submit" class="btn btn-primary submit">送出</a>
     <a id="next">下一張</a>
     <span class="tip">Enter: 送出 / shift+Enter: 下一張</span>
-    <div class="cell-info" data-page="<?= $this->page ?>" data-x="<?= $this->x ?>" data-y="<?= $this->y ?>">
-        <span><?= "第 " . $this->page . " 頁 (" . $this->x . ", " . $this->y . ")" ?></span>
-        <?php if ($this->cell != null) { ?>
-        <span><?= " 已經有人填寫了: " . $this->cell->ans ?></span>
-        <?php } ?>
-    </div>
-    <div class="cell-image"><img src="<?= $this->cellimg ?>" /></div>
+    <div class="cell-info"></div>
+    <div class="cell-image"></div>
 </div>
 <script src="/static/js/cell.js"></script>
 <link rel="stylesheet" href="/static/css/cell.css">
