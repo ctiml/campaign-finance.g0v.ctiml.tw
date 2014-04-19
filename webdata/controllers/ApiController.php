@@ -71,7 +71,8 @@ class ApiController extends Pix_Controller
 
     public function getcellcountAction()
     {
-        return $this->jsonp(array('count' => count(Cell::search(1))), $_GET['callback']);
+        $count = KeyValue::get('cache_count');
+        return $this->jsonp(array('count' => $count), $_GET['callback']);
     }
 
     protected function getrandom()
