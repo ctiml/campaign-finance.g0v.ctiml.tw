@@ -62,6 +62,10 @@ $(document).ready(function(){
   $('#no-content').click(submitAnswer);
   $('#confirm').click(submitAnswer);
   $('.quick-answer').click(submitAnswer);
+  $('#quick-trigger').click(function(){
+    $('.quick-answer').toggle();
+    $('.open-close').text($('.quick-answer').is(':visible') ? "關閉" : "開啟");
+  });
 
   $('#next').click(getRandomImage);
 

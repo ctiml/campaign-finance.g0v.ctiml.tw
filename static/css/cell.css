@@ -8,3 +8,6 @@ a:hover {
     color: #bbb;
     padding-left: 10px;
 }
+.quick-answer {
+    display: none;
+}
