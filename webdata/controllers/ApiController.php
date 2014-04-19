@@ -12,6 +12,7 @@ class ApiController extends Pix_Controller
         
         $values = array('page' => $page, 'x' => $x, 'y' => $y);
         $cell = Cell::search($values)->first();
+        CellHistory::insert(array_merge($values, array('ans' => $ans, 'client_ip' => $_SERVER["REMOTE_ADDR"])));
         if ($cell == NULL) {
             Cell::insert(array_merge($values, array('ans' => $ans)));
         } else {
