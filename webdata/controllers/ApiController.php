@@ -32,9 +32,9 @@ class ApiController extends Pix_Controller
         $values = array('page' => $page, 'x' => $x, 'y' => $y);
         $cell = Cell::search($values)->first();
         if ($cell == NULL) {
-            return $this->json(array('error' => true, 'message' => 'not found'));
+            return $this->jsonp(array('error' => true, 'message' => 'not found'), $_GET['callback']);
         } else {
-            return $this->json(array('error' => false, 'value' => $cell->ans));
+            return $this->jsonp(array('error' => false, 'value' => $cell->ans), $_GET['callback']);
         }
     }
 
@@ -57,6 +57,6 @@ class ApiController extends Pix_Controller
                 'ans' => $cell->ans
             ));
         }
-        return $this->json($json);
+        return $this->jsonp($json, $_GET['callback']);
     }
 }
