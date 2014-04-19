@@ -29,7 +29,7 @@ $(document).ready(function(){
     $('.cell-image').html("");
     
     $.get('/api/getrandom', function(res) {
-      $('.cell-image').html($('<img></img>').attr('src', res.img_url));
+      $('.cell-image').html($('<img></img>').attr('src', res.img_url).bind('error', function(){ getRandomImage(); }));
       $('.cell-info').data({
         page: res.page,
         x: res.x,
