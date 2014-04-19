@@ -13,7 +13,8 @@ class CellController extends Pix_Controller
             $this->view->cell = $cell;
         }
 
-        $this->view->cellimg = "http://campaign-finance.g0v.ronny.tw/api/getcellimage/" . $page . "/" . $x . "/" . $y . ".png";
+        $api_url = "http://" . strval(getenv(CAMPAIGN_FINANCE_RONNY)) . "/api/getcellimage";
+        $this->view->cellimg = $api_url . "/" . $page . "/" . $x . "/" . $y . ".png";
         $this->view->page = $page;
         $this->view->x = $x;
         $this->view->y = $y;
@@ -21,6 +22,6 @@ class CellController extends Pix_Controller
 
     public function fillAction()
     {
-        $this->view->cellimg = "http://campaign-finance.g0v.ronny.tw/api/getcellimage/775/2/1.png";
+        $this->view->cellimg = "http://" . strval(getenv(CAMPAIGN_FINANCE_RONNY)) . "/api/getcellimage/775/2/1.png";
     }
 }
