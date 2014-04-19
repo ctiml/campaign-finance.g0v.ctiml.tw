@@ -78,7 +78,8 @@ class ApiController extends Pix_Controller
     protected function getrandom()
     {
         Pix_Table::enableLog(Pix_Table::LOG_QUERY);
-        $page = rand(1, 2500);
+        $page = rand(1, 2637);
+        // 五成的機率優先推 PagePromotion 的 Table
         if (rand(1, 100) > 50) {
             $promotions = array_values(PagePromotion::search(1)->toArray());
             if (count($promotions) > 0) {
@@ -111,7 +112,20 @@ class ApiController extends Pix_Controller
                 }
                 // page 滿了
                 if ($pp = PagePromotion::find($page)) {
+                    // 把他從 promotion 移除
                     $pp->delete();
+
+                    // 要找一個不在 Promtion 以及 Done 的出來推一下
+                    $ids = array_merge( array_values(PagePromotion::search(1)->toArray('page')), array_values(PageDone::search(1)->toArray('id')));
+                    sort($ids);
+
+                    // 從小找到大找到最小的還沒做的來 promote
+                    foreach ($ids as $a => $b) {
+                        if ($b != $a + 1) {
+                            PagePromotion::insert(array('page' => $a + 1));
+                            break;
+                        }
+                    }
                 }
                 try {
                     PageDone::insert(array('id' => $page, 'done_at' => time()));
@@ -124,6 +138,11 @@ class ApiController extends Pix_Controller
         }
 
         return array($page, $x, $y, $ans);
+    }
+
+    public function getdonepagesAction()
+    {
+        return $this->jsonp(array_values(PageDone::search(1)->order('id asc')->toArray()), $_GET['callback']);
     }
 
     public function getrandomAction()
