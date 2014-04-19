@@ -2,11 +2,14 @@
 <div class="container">
     <h3>請填入圖片中的數字、文字或日期</h3>
     <input id="ans" class="form-control" type="text" name="ans" />
-    <a id="submit" class="btn btn-primary submit">送出</a>
+    <a id="submit" class="btn btn-primary submit">　送出　</a>
     <a id="no-content" class="btn no-content">這是空白</a>
     <a id="next">下一張</a>
     <span class="tip">Enter: 送出 / shift+Enter: 下一張</span>
-    <div class="cell-info"></div>
+    <div>
+        <span class="cell-info"></span>
+        <a id="confirm" class="btn confirm" style="display: none;">這答案沒錯</a>
+    <div>
     <div class="cell-image"></div>
 </div>
 <script src="/static/js/cell.js"></script>

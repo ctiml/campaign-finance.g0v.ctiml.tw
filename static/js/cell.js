@@ -6,9 +6,15 @@ $(document).ready(function(){
     }
 
     var ans = $('#ans').val();
+
+    if ($(this).hasClass("confirm")) {
+      ans = $('.cell-info').data('ans');
+    }
+
     if (ans === "" && $(this).hasClass("no-content") === false) {
       return;
     }
+
     var page = $('.cell-info').data('page');
     var x = $('.cell-info').data('x');
     var y = $('.cell-info').data('y');
@@ -25,6 +31,7 @@ $(document).ready(function(){
   var getRandomImage = function() {
     $('#ans').val("").focus();
     $('.cell-info').text("圖片載入中...");
+    $('.confirm').hide();
     $('.cell-image').html("");
     
     $.get('/api/getrandom', function(res) {
@@ -40,6 +47,7 @@ $(document).ready(function(){
 
       if (res.ans !== "") {
         $('.cell-info').append($('<span></span>').text(" 已經有人填寫了：" + res.ans));
+        $('.confirm').show();
       }
 
     });
@@ -48,6 +56,7 @@ $(document).ready(function(){
 
   $('#submit').click(submitAnswer);
   $('#no-content').click(submitAnswer);
+  $('#confirm').click(submitAnswer);
 
   $('#next').click(getRandomImage);
 
