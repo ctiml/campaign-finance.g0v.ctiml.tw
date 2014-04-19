@@ -11,7 +11,7 @@ $(document).ready(function(){
       ans = $('.cell-info').data('ans');
     }
 
-    if (ans === "" && $(this).hasClass("no-content") === false) {
+    if (ans === "" && $(this).hasClass("no-content") === false && $(this).hasClass("confirm") === false) {
       return;
     }
 
