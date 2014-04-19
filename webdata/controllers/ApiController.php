@@ -39,7 +39,11 @@ class ApiController extends Pix_Controller
         if ($cell == NULL) {
             return $this->jsonp(array('error' => true, 'message' => 'not found'), $_GET['callback']);
         } else {
-            return $this->jsonp(array('error' => false, 'value' => $cell->ans), $_GET['callback']);
+            return $this->jsonp(array(
+                'error' => false,
+                'value' => $cell->ans,
+                'history' => array_values(CellHistory::search($values)->order('created DESC')->toArray())
+            ), $_GET['callback']);
         }
     }
 
