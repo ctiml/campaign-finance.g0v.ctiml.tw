@@ -6,25 +6,24 @@ $(document).ready(function(){
     }
 
     var ans = $('#ans').val();
-    if (ans === "" && $('#no-content:checked').size() === 0 ) {
+    if (ans === "" && $(this).hasClass("no-content") === false) {
       return;
     }
     var page = $('.cell-info').data('page');
     var x = $('.cell-info').data('x');
     var y = $('.cell-info').data('y');
 
-    $('#submit').attr('disabled', 'disabled');
+    $('#submit,#no-content').attr('disabled', 'disabled');
 
     var url = ['/api/fillcell/', page, "/", x, "/", y].join("");
     $.post(url, { ans: ans }, function(res){
       getRandomImage();
-      $('#submit').removeAttr('disabled');
+      $('#submit,#no-content').removeAttr('disabled');
     });
   };
 
   var getRandomImage = function() {
     $('#ans').val("").focus();
-    $('#no-content:checked').prop('checked', false);
     $('.cell-info').text("圖片載入中...");
     $('.cell-image').html("");
     
@@ -48,6 +47,7 @@ $(document).ready(function(){
   getRandomImage();
 
   $('#submit').click(submitAnswer);
+  $('#no-content').click(submitAnswer);
 
   $('#next').click(getRandomImage);
 
