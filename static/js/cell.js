@@ -68,7 +68,7 @@ $(document).ready(function(){
   $('#ans').keypress(function(e) {
     if (e.which == 13) {
       if (e.shiftKey) {
-        getRandomImage();
+        submitAnswer.apply($("#no-content")[0]);
       }
       e.preventDefault();
       submitAnswer();
