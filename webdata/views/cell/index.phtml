@@ -1,10 +1,10 @@
 <?= $this->partial('/common/header.phtml', $this) ?>
 <div class="container">
     <h3>請填入圖片中的數字、文字或日期</h3>
-    <input id="ans" class="form-control" type="text" name="ans" />
-    <a id="submit" class="btn btn-primary submit">　送出　</a>
-    <a id="no-content" class="btn no-content">這是空白</a>
-    <a id="next">下一張</a>
+    <input id="ans" class="form-control" type="text" name="ans" tabindex="1" />
+    <a id="submit" class="btn btn-primary submit" tabindex="2">　送出　</a>
+    <a id="no-content" class="btn no-content" tabindex="3">這是空白</a>
+    <a id="next" tabindex="4">下一張</a>
     <span class="tip">Enter: 送出 / shift+Enter: 下一張</span>
     <div>
         <span class="cell-info"></span>
