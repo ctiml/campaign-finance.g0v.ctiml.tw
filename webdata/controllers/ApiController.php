@@ -72,6 +72,11 @@ class ApiController extends Pix_Controller
     public function getrandomAction()
     {
         $page = rand(1, 2500);
+        if (rand(1, 100) > 50) {
+            $promotions = array_values(PagePromotion::search(1)->toArray());
+            $index = rand(0, count($promotions) - 1);
+            $page = $promotions[$index]['page'];
+        }
         $x = rand(2, 21);
         $y = rand(2, 7);
         $ans = "";
