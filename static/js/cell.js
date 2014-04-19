@@ -11,6 +11,10 @@ $(document).ready(function(){
       ans = $('.cell-info').data('ans');
     }
 
+    if ($(this).hasClass("quick-answer")) {
+        ans = $(this).data('answer');
+    }
+
     if (ans === "" && $(this).hasClass("no-content") === false) {
       return;
     }
@@ -57,6 +61,7 @@ $(document).ready(function(){
   $('#submit').click(submitAnswer);
   $('#no-content').click(submitAnswer);
   $('#confirm').click(submitAnswer);
+  $('.quick-answer').click(submitAnswer);
 
   $('#next').click(getRandomImage);
 
