@@ -65,7 +65,7 @@ class ApiController extends Pix_Controller
     {
         $page = rand(1, 2500);
         $x = rand(2, 21);
-        $y = rand(1, 9);
+        $y = rand(2, 9);
         $ans = "";
 
         $cell = Cell::search(array('page' => $page, 'x' => $x, 'y' => $y))->first();
