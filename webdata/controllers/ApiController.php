@@ -117,6 +117,7 @@ class ApiController extends Pix_Controller
 
                     // 要找一個不在 Promtion 以及 Done 的出來推一下
                     $ids = array_merge( array_values(PagePromotion::search(1)->toArray('page')), array_values(PageDone::search(1)->toArray('id')));
+                    $ids = array_unique($ids);
                     sort($ids);
 
                     // 從小找到大找到最小的還沒做的來 promote
