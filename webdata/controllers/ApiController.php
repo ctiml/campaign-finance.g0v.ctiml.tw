@@ -69,7 +69,7 @@ class ApiController extends Pix_Controller
         return $this->jsonp($json, $_GET['callback']);
     }
 
-    public function getrandomAction()
+    protected function getrandom()
     {
         $page = rand(1, 2500);
         if (rand(1, 100) > 50) {
@@ -79,12 +79,23 @@ class ApiController extends Pix_Controller
         }
         $x = rand(2, 21);
         $y = rand(2, 7);
+
         $ans = "";
 
         $cell = Cell::search(array('page' => $page, 'x' => $x, 'y' => $y))->first();
         if ($cell != NULL) {
+            if (rand(1, 100) < 80) {
+                return $this->getrandom();
+            }
             $ans = $cell->ans;
         }
+
+        return array($page, $x, $y, $ans);
+    }
+
+    public function getrandomAction()
+    {
+        list($page, $x, $y, $ans) = $this->getrandom();
 
         $api_url = "http://" . strval(getenv(CAMPAIGN_FINANCE_RONNY)) . "/api/getcellimage";
         $img_url = $api_url . "/" . $page . "/" . $x . "/" . $y . ".png";
