@@ -111,7 +111,7 @@ class ApiController extends Pix_Controller
                     }
                 }
                 // page 滿了
-                if ($pp = PagePromotion::find($page)) {
+                if ($pp = PagePromotion::find_by_page($page)) {
                     // 把他從 promotion 移除
                     $pp->delete();
 
