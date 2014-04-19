@@ -6,7 +6,7 @@ $(document).ready(function(){
     }
 
     var ans = $('#ans').val();
-    if (ans === "") {
+    if (ans === "" && $('#no-content:checked').size() === 0 ) {
       return;
     }
     var page = $('.cell-info').data('page');
@@ -24,6 +24,7 @@ $(document).ready(function(){
 
   var getRandomImage = function() {
     $('#ans').val("").focus();
+    $('#no-content:checked').prop('checked', false);
     $('.cell-info').text("圖片載入中...");
     $('.cell-image').html("");
     
