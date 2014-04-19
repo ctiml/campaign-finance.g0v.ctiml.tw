@@ -11,3 +11,6 @@ a:hover {
 .quick-answer {
     display: none;
 }
+.qa-group {
+    margin-bottom: 3px;
+}
