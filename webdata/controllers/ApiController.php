@@ -17,14 +17,18 @@ class ApiController extends Pix_Controller
             'client_ip' => $_SERVER["REMOTE_ADDR"],
             'created' => time()
         )));
+        $count = CellHistory::search(array('page' => $page, 'x' => $x, 'y' => $y))->count();
         if ($cell == NULL) {
             try {
-                Cell::insert(array_merge($values, array('ans' => $ans)));
+                Cell::insert(array_merge($values, array(
+                    'ans' => $ans,
+                    'count' => $count)));
             } catch (Pix_Table_DuplicateException $e) {
-                $cell->update(array('ans' => $ans));
+                $cell->update(array('ans' => $ans, 'count' => $count));
             }
         } else {
             $cell->ans = $ans;
+            $cell->count = $count;
             $cell->save();
             echo $cell->page . "/" . $cell->x . "/" . $cell->y . " => " . $cell->ans;
         }
