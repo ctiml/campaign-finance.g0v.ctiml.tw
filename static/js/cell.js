@@ -1,7 +1,7 @@
 $(document).ready(function(){
   function updateCounter() {
     addCounter();
-    updateView();
+    updateCounterView();
   }
 
   function addCounter() {
