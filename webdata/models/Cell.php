@@ -38,9 +38,11 @@ class Cell extends Pix_Table
         $this->_columns['x'] = array('type' => 'int');
         $this->_columns['y'] = array('type' => 'int');
         $this->_columns['ans'] = array('type' => 'string');
+        // 記錄這格被輸入過幾次
+        $this->_columns['count'] = array('type' => 'int');
 
         $this->addIndex('page_x_y', array('page', 'x', 'y'), 'unique');
+        $this->addIndex('count', array('count'));
         $this->addIndex('page_id', array('page', 'id'), 'unique');
-
     }
 }
