@@ -17,7 +17,7 @@ class ApiController extends Pix_Controller
             'client_ip' => $_SERVER["REMOTE_ADDR"],
             'created' => time()
         )));
-        $count = CellHistory::search(array('page' => $page, 'x' => $x, 'y' => $y))->count();
+        $count = intval($cell->count) + 1;
         if ($cell == NULL) {
             try {
                 Cell::insert(array_merge($values, array(
