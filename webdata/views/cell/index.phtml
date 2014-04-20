@@ -1,6 +1,9 @@
 <?= $this->partial('/common/header.phtml', $this) ?>
 <div class="container">
     <h3>請填入圖片中的數字、文字或日期</h3>
+    <div class="counterContainer">
+    您已經輸入了：<span class="counter">0</span>筆資料。
+    </div>
     <input id="ans" class="form-control" type="text" name="ans" tabindex="1" />
     <button id="submit" class="btn btn-primary submit" tabindex="2">　送出　</button>
     <button id="no-content" class="btn no-content" tabindex="3">這是空白</button>
