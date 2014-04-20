@@ -85,7 +85,6 @@ class ApiController extends Pix_Controller
 
     protected function getrandom()
     {
-        Pix_Table::enableLog(Pix_Table::LOG_QUERY);
         $page = rand(1, 2637);
         // 五成的機率優先推 PagePromotion 的 Table
         if (rand(1, 100) > 50) {
