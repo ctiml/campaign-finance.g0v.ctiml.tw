@@ -111,7 +111,7 @@ class ApiController extends Pix_Controller
                     }
                 }
                 // page 滿了
-                if ($pp = PagePromotion::find_by_page($page)) {
+                if ($pp = PagePromotion::find($page)) {
                     // 把他從 promotion 移除
                     $pp->delete();
 
@@ -123,7 +123,13 @@ class ApiController extends Pix_Controller
                     // 從小找到大找到最小的還沒做的來 promote
                     foreach ($ids as $a => $b) {
                         if ($b != $a + 1) {
-                            PagePromotion::insert(array('page' => $a + 1));
+                            try {
+                                PagePromotion::insert(array(
+                                    'id' => $a + 1,
+                                    'page' => $a + 1,
+                                ));
+                            } catch (Pix_Table_DuplicateException $e) {
+                            }
                             break;
                         }
                     }
