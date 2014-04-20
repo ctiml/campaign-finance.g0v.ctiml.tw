@@ -39,6 +39,7 @@ class Cell extends Pix_Table
         $this->_columns['y'] = array('type' => 'int');
         $this->_columns['ans'] = array('type' => 'string');
 
+        $this->addIndex('page_x_y', array('page', 'x', 'y'), 'unique');
         $this->addIndex('page_id', array('page', 'id'), 'unique');
 
     }
