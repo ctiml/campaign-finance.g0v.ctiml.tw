@@ -1,11 +1,37 @@
 <?php
 
+class CellRow extends Pix_Table_Row
+{
+    public function invalidCell()
+    {
+        $page = $this->page;
+        // 將這一格設定為不正確..以方便讓使用者重新優先輸入
+        $this->delete();
+
+        // 如果這一頁已經完成了，就把他改成未完成，並且把他加入 PagePromotion
+        if ($page_done = PageDone::find($page)) {
+            $page_done->delete();
+
+            if (count(PagePromotion::search(1)) < 200) {
+                try {
+                    PagePromotion::insert(array(
+                        'page' => $page,
+                        'id' => $page,
+                    ));
+                } catch (Pix_Table_DuplicateException $e) {
+                }
+            }
+        }
+    }
+}
+
 class Cell extends Pix_Table
 {
     public function init()
     {
         $this->_name = 'cell';
         $this->_primary = array('id');
+        $this->_rowClass = 'CellRow';
 
         $this->_columns['id'] = array('type' => 'int', 'auto_increment' => true);
         $this->_columns['page'] = array('type' => 'int');
