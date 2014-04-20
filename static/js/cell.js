@@ -1,4 +1,34 @@
 $(document).ready(function(){
+  function updateCounter() {
+    addCounter();
+    updateCounterView();
+  }
+
+  function addCounter() {
+    setCounter(getCount() + 1);
+  }
+
+  function getCount() {
+    if(localStorage.submmited) {
+      return parseInt(localStorage.submmited);
+    } else {
+      return 0;
+    }
+  }
+
+  function setCounter(count) {
+    localStorage.submmited = count;
+  }
+
+  function updateCounterView() {
+    getCounterView.html(getCount());
+  }
+
+  // return a jQuery object which indicate counter itself.
+  function getConterView() {
+    return $(".counter");
+  }
+
 
   var submitAnswer = function(e) {
     if (e !== undefined) {
@@ -29,6 +59,7 @@ $(document).ready(function(){
     $.post(url, { ans: ans }, function(res){
       getRandomImage();
       $('#submit,#no-content').removeAttr('disabled');
+      updateCounter();
     });
   };
 
