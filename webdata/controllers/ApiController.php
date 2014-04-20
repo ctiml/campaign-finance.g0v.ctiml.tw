@@ -97,6 +97,8 @@ class ApiController extends Pix_Controller
         }
         $page_info = PageInfo::find($page);
 
+        $input_y = array(2, 3, 4, 5, 6, 7, 9);
+
         // 八成的機率隨機抓填入次數最小的
         if (!$promotions and rand(1, 100) < 80) {
             $cells = array_values(Cell::search(1)->order('count ASC')->limit(100)->toArray());
@@ -105,7 +107,7 @@ class ApiController extends Pix_Controller
             return array($cell['page'], $cell['x'], $cell['y'], $cell['ans'], $cell['count']);
         } else {
             $x = rand(2, $page_info->row_count);
-            $y = rand(2, 7);
+            $y = $input_y[rand(0, count($input_y) - 1)];
         }
 
         $ans = null;
@@ -119,7 +121,7 @@ class ApiController extends Pix_Controller
                     $used_cells[intval($cell_array['x']) . '-' . intval($cell_array['y'])] = true;
                 }
                 foreach (range(2, $page_info->row_count) as $x) {
-                    foreach (range(2, 7) as $y) {
+                    foreach ($input_y as $y) {
                         if ($used_cells[$x . '-' . $y]) {
                             continue;
                         }
