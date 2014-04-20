@@ -96,8 +96,16 @@ class ApiController extends Pix_Controller
         }
         $page_info = PageInfo::find($page);
 
-        $x = rand(2, $page_info->row_count);
-        $y = rand(2, 7);
+        // 八成的機率隨機抓填入次數最小的
+        if (rand(1, 100) < 80) {
+            $cells = array_values(Cell::search(1)->order('count ASC')->limit(100)->toArray());
+            shuffle($cells);
+            $cell = $cells[0];
+            return array($cell['page'], $cell['x'], $cell['y'], $cell['ans'], $cell['count']);
+        } else {
+            $x = rand(2, $page_info->row_count);
+            $y = rand(2, 7);
+        }
 
         $ans = null;
 
