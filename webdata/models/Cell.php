@@ -45,4 +45,22 @@ class Cell extends Pix_Table
         $this->addIndex('count', array('count'));
         $this->addIndex('page_id', array('page', 'id'), 'unique');
     }
+
+    public function checkData($y, $data) {
+        switch ($y) {
+        case 2: // 交易日期
+            $data = trim($data);
+            $data = str_replace('／', '/', $data);
+            if (preg_match('#^[0-9]*$#', $data) and strlen($data) == 7) {
+                $data = sprintf("%3d/%02d/%02d", intval($data) / 10000, intval($data) / 100 % 100, intval($data) %     100);
+            }
+            if (!preg_match('#^[0-9]*/[0-9]*/[0-9]*$#', $data)) {
+                return false;
+            }
+            return $data;
+        default:
+            return trim($data);
+
+        }
+    }
 }
