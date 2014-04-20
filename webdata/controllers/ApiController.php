@@ -159,7 +159,7 @@ class ApiController extends Pix_Controller
             $ans = $cell->ans;
         }
 
-        return array($page, $x, $y, $ans);
+        return array($page, $x, $y, $ans, $cell->count);
     }
 
     public function getdonepagesAction()
@@ -169,7 +169,7 @@ class ApiController extends Pix_Controller
 
     public function getrandomAction()
     {
-        list($page, $x, $y, $ans) = $this->getrandom();
+        list($page, $x, $y, $ans, $count) = $this->getrandom();
 
         $api_url = "http://" . strval(getenv(CAMPAIGN_FINANCE_RONNY)) . "/api/getcellimage";
         $img_url = $api_url . "/" . $page . "/" . $x . "/" . $y . ".png";
@@ -179,7 +179,8 @@ class ApiController extends Pix_Controller
             'page' => $page,
             'x' => $x,
             'y' => $y,
-            'ans' => $ans
+            'ans' => $ans,
+            'count' => $count,
         ));
     }
 }

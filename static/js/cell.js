@@ -50,7 +50,7 @@ $(document).ready(function(){
       .append($('<span></span>').text("第 "+res.page+" 頁 ("+res.x+", "+res.y+" )"));
 
       if (res.ans !== null) {
-        $('.cell-info').append($('<span></span>').text(" 已經有人填寫了：").append($('<code></code>').text(res.ans)));
+        $('.cell-info').append($('<span></span>').text(" 已經有" +res.count + "人填寫確認了，目前答案：").append($('<code></code>').text(res.ans)));
         $('.confirm').show();
       }
 
