@@ -99,6 +99,18 @@ class Cell extends Pix_Table
             }
             return false;
 
+        case '6': // 收入
+        case '7': // 支出
+            $data = trim($data);
+            if ($data == '') {
+                return $data;
+            }
+            $data = str_replace(',', '', $data);
+            $data = str_replace('，', '', $data);
+            if (preg_match('#^[0-9]*$#', $data)) {
+                return $data;
+            }
+            return false;
         default:
             return trim($data);
         }
