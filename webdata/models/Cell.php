@@ -58,9 +58,49 @@ class Cell extends Pix_Table
                 return false;
             }
             return $data;
+
+        case 3: // 收支科目
+            $data = trim($data);
+            switch ($data) {
+            case '':
+                return false;
+            case '人事支出費用':
+            case '人士費用支出':
+            case '人事費用支出':
+                return '人事費用支出';
+            case '匿名捐贈':
+            case '匿名':
+            case '匿名捐增':
+            case '匿名損贈':
+                return '匿名捐贈';
+            case '交通旅費支出':
+            case '交通旅遊支出':
+            case '交通運旅支出':
+            case '交通旅運支出':
+                return '交通旅運支出';
+            case '個人捐贈支出':
+            case '各人捐贈收入':
+            case '個人損贈收入':
+            case '個人捐增收入':
+            case '個人捐贈收入':
+                return '個人捐贈收入';
+            case '租用競選辦事處支出':
+                return '租用競選辦事處支';
+            case '雜支支出':
+            case '集會支出':
+            case '宣傳支出':
+            case '營利事業捐贈收入':
+            case '租用宣傳車輛支出':
+            case '繳庫支出':
+            case '返還支出':
+            case '政黨捐贈收入':
+            case '其他收入':
+                return $data;
+            }
+            return false;
+
         default:
             return trim($data);
-
         }
     }
 }
