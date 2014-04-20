@@ -97,7 +97,7 @@ class ApiController extends Pix_Controller
         }
         $page_info = PageInfo::find($page);
 
-        $input_y = array(2, 3, 4, 5, 6, 7, 9);
+        $input_y = array(2, 3, 4, 5, 6, 7, 9, 9, 9, 9);
 
         // 八成的機率隨機抓填入次數最小的
         if (!$promotions and rand(1, 100) < 80) {
