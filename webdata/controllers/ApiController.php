@@ -18,19 +18,13 @@ class ApiController extends Pix_Controller
             'created' => time()
         )));
         $count = intval($cell->count) + 1;
-        if ($cell == NULL) {
-            try {
-                Cell::insert(array_merge($values, array(
-                    'ans' => $ans,
-                    'count' => $count)));
-            } catch (Pix_Table_DuplicateException $e) {
-                $cell->update(array('ans' => $ans, 'count' => $count));
-            }
-        } else {
-            $cell->ans = $ans;
-            $cell->count = $count;
-            $cell->save();
-            echo $cell->page . "/" . $cell->x . "/" . $cell->y . " => " . $cell->ans;
+        try {
+            Cell::insert(array_merge($values, array(
+                'ans' => $ans,
+                'count' => $count)));
+        } catch (Pix_Table_DuplicateException $e) {
+            $cell = Cell::search($values)->first();
+            $cell->update(array('ans' => $ans, 'count' => $count));
         }
         return $this->noview();
     }
