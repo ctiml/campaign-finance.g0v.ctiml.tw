@@ -18,7 +18,11 @@ class ApiController extends Pix_Controller
             'created' => time()
         )));
         if ($cell == NULL) {
-            Cell::insert(array_merge($values, array('ans' => $ans)));
+            try {
+                Cell::insert(array_merge($values, array('ans' => $ans)));
+            } catch (Pix_Table_DuplicateException $e) {
+                $cell->update(array('ans' => $ans));
+            }
         } else {
             $cell->ans = $ans;
             $cell->save();
