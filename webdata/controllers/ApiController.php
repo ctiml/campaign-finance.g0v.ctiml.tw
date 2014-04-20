@@ -87,6 +87,7 @@ class ApiController extends Pix_Controller
     {
         $page = rand(1, 2637);
         // 五成的機率優先推 PagePromotion 的 Table
+        $promotions = array();
         if (rand(1, 100) > 50) {
             $promotions = array_values(PagePromotion::search(1)->toArray());
             if (count($promotions) > 0) {
@@ -97,7 +98,7 @@ class ApiController extends Pix_Controller
         $page_info = PageInfo::find($page);
 
         // 八成的機率隨機抓填入次數最小的
-        if (rand(1, 100) < 80) {
+        if (!$promotion and rand(1, 100) < 80) {
             $cells = array_values(Cell::search(1)->order('count ASC')->limit(100)->toArray());
             shuffle($cells);
             $cell = $cells[0];
