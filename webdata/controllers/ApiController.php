@@ -41,10 +41,17 @@ class ApiController extends Pix_Controller
         if ($cell == NULL) {
             return $this->jsonp(array('error' => true, 'message' => 'not found'), $_GET['callback']);
         } else {
+            // 對 client_ip 加密
+            $history = array();
+            foreach(array_values(CellHistory::search($values)->order('created DESC')->toArray()) as $ch) {
+                $ch['encrypted_client_ip'] = crc32($ch['client_ip'] . strval(getenv(SECRET_KEY)));
+                unset($ch['client_ip']);
+                $history[] = $ch;
+            }
             return $this->jsonp(array(
                 'error' => false,
                 'value' => $cell->ans,
-                'history' => array_values(CellHistory::search($values)->order('created DESC')->toArray())
+                'history' => $history
             ), $_GET['callback']);
         }
     }
