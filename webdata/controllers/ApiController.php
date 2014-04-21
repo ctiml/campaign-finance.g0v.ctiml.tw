@@ -112,7 +112,7 @@ class ApiController extends Pix_Controller
 
         $ans = null;
 
-        $cell = Cell::search(array('page' => $page, 'x' => $x, 'y' => $y))->first();
+        $cell = Cell::search(array('page' => $page, 'x' => $x))->first();
         if ($cell != NULL) {
             if (rand(1, 100) < 80) {
                 $cells = Cell::search(array('page'=>$page, 'y' => 9))->toArray(array('x', 'y'));
@@ -121,7 +121,7 @@ class ApiController extends Pix_Controller
                     $used_cells[intval($cell_array['x']) . '-' . intval($cell_array['y'])] = true;
                 }
                 foreach (range(2, $page_info->row_count) as $x) {
-                    foreach (array(9) as $y) {
+                    foreach ($input_y as $y) {
                         if ($used_cells[$x . '-' . $y]) {
                             continue;
                         }
