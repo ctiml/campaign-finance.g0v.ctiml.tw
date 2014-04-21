@@ -53,12 +53,11 @@ class ApiController extends Pix_Controller
     {
         list(, /*api*/, /*getcells*/, $page) = explode('/', $this->getURI());
 
-        $values = array();
-        if ($page != null) {
-            $values = array('page' => intval($page));
+        if ($page == null) {
+            return $this->jsonp(array('error' => 'true', 'message' => 'page not found'), $_GET['callback']);
         }
 
-        $cells = Cell::search($values)->order('page, x, y ASC');
+        $cells = Cell::search(array('page' => $page))->order('page, x, y ASC');
         $json = array();
         foreach ($cells as $cell) {
             array_push($json, array(
