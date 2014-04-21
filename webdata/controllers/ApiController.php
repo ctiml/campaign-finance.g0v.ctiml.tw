@@ -45,7 +45,11 @@ class ApiController extends Pix_Controller
             $history = array();
             foreach(array_values(CellHistory::search($values)->order('created DESC')->toArray()) as $ch) {
                 $ch['encrypted_client_ip'] = crc32($ch['client_ip'] . strval(getenv(SECRET_KEY)));
+                $ch['row'] = $ch['x'];
+                $ch['col'] = $ch['y'];
                 unset($ch['client_ip']);
+                unset($ch['x']);
+                unset($ch['y']);
                 $history[] = $ch;
             }
             return $this->jsonp(array(
@@ -69,8 +73,8 @@ class ApiController extends Pix_Controller
         foreach ($cells as $cell) {
             array_push($json, array(
                 'page' => $cell->page,
-                'x' => $cell->x,
-                'y' => $cell->y,
+                'row' => $cell->x,
+                'col' => $cell->y,
                 'ans' => $cell->ans
             ));
         }
