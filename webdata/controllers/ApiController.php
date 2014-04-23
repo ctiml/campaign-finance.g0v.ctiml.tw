@@ -4,6 +4,13 @@ class ApiController extends Pix_Controller
 {
     public function fillcellAction()
     {
+        if (!$_POST['sToken']) {
+            return $this->noview();
+        }
+        if ($_POST['sToken'] != Pix_Session::get('sToken')) {
+            return $this->noview();
+        }
+
         list(, /*api*/, /*fillcell*/, $page, $x, $y) = explode('/', $this->getURI());
         $page = intval($page);
         $x = intval($x);

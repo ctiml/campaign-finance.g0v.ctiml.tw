@@ -26,7 +26,7 @@ $(document).ready(function(){
     $('#submit,#no-content').attr('disabled', 'disabled');
 
     var url = ['/api/fillcell/', page, "/", x, "/", y].join("");
-    $.post(url, { ans: ans }, function(res){
+    $.post(url, { ans: ans, sToken: $('[name="sToken"]').val() }, function(res){
       getRandomImage();
       $('#submit,#no-content').removeAttr('disabled');
     });
