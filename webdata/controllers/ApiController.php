@@ -44,7 +44,7 @@ class ApiController extends Pix_Controller
             // 對 client_ip 加密
             $history = array();
             foreach(array_values(CellHistory::search($values)->order('created DESC')->toArray()) as $ch) {
-                $ch['encrypted_client_ip'] = crc32($ch['client_ip'] . strval(getenv(SECRET_KEY)));
+                $ch['encrypted_client_ip'] = crc32($ch['client_ip'] . strval(getenv(IP_CLOAK_SECRET)));
                 $ch['row'] = $ch['x'];
                 $ch['col'] = $ch['y'];
                 unset($ch['client_ip']);
