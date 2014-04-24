@@ -99,14 +99,14 @@ class ApiController extends Pix_Controller
 
     protected function getrandom()
     {
-        $page = rand(1, 2637);
+        $page = rand(1, PageInfo::search(1)->max('id')->id);
         // 五成的機率優先推 PagePromotion 的 Table
         $promotions = array();
         if (rand(1, 100) > 50) {
             $promotions = array_values(PagePromotion::search(1)->toArray());
             if (count($promotions) > 0) {
                 $index = rand(0, count($promotions) - 1);
-                $page = $promotions[$index]['page'];
+                $page = $promotions[$index]['id'];
             }
         }
         $page_info = PageInfo::find($page);
