@@ -93,7 +93,7 @@ class ApiController extends Pix_Controller
         $count = KeyValue::get('cache_count');
         return $this->jsonp(array(
             'count' => $count,
-            'todo' => count(Cell::search(array('count' => 0))),
+            'todo' => KeyValue::get('cache_count_todo'),
         ), $_GET['callback']);
     }
 
