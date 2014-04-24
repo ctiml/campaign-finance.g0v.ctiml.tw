@@ -97,6 +97,16 @@ class ApiController extends Pix_Controller
         ), $_GET['callback']);
     }
 
+    protected function getrandomsAction()
+    {
+        $cells = array_values(Cell::search(1)->order('count ASC')->limit(100)->toArray());
+        shuffle($cells);
+        return $this->json(array_map(function($r){
+            $r['img_url'] = "http://" . strval(getenv('CAMPAIGN_FINANCE_RONNY')) . "/api/getcellimage/{$r['page']}/{$r['x']}/{$r['y']}.png";
+            return $r;
+        }, array_slice($cells, 10)));
+    }
+
     protected function getrandom()
     {
         $page = rand(1, PageInfo::search(1)->max('id')->id);
@@ -115,10 +125,6 @@ class ApiController extends Pix_Controller
 
         // 八成的機率隨機抓填入次數最小的
         if (!$promotions and rand(1, 100) < 80) {
-            $cells = array_values(Cell::search(1)->order('count ASC')->limit(100)->toArray());
-            shuffle($cells);
-            $cell = $cells[0];
-            return array($cell['page'], $cell['x'], $cell['y'], $cell['ans'], $cell['count']);
         } else {
             $x = rand(2, $page_info->row_count);
             $y = $input_y[rand(0, count($input_y) - 1)];
