@@ -5,6 +5,7 @@ $(document).ready(function(){
   var updateCount = function() {
     $.get('/api/getcellcount', function(res){
         $('#counter').text(res.count);
+        $('#todo').text(res.todo);
         timer = setTimeout(updateCount, period);
     });
   };
