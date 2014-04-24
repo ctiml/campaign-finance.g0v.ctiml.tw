@@ -27,9 +27,10 @@ $(document).ready(function(){
 
     var url = ['/api/fillcell/', page, "/", x, "/", y].join("");
     $.post(url, { ans: ans, sToken: $('[name="sToken"]').val() }, function(res){
-      getRandomImage();
-      $('#submit,#no-content').removeAttr('disabled');
+      // 射後不理(?)
     });
+    getRandomImage();
+    $('#submit,#no-content').removeAttr('disabled');
   };
 
 
