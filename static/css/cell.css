@@ -25,7 +25,7 @@ a:hover {
     background-color: transparent !important;
 }
 .ans-shadow {
-    position: absolute;
+    position: absolute !important;
     z-index: -1;
     background-color: #fff !important;
     color: #c8c8c8 !important;
