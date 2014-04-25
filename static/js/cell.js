@@ -125,7 +125,8 @@ $(document).ready(function(){
       return;
     }
     var candidates = submitted_answers.filter(function(a) {
-      return a.match("^" + ans + ".+");
+      var escaped_ans = ans.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+      return a.match("^" + escaped_ans + ".+");
     });
     $('#ans-shadow').val((candidates.length > 0) ? candidates.sort()[0] : "");
   };
