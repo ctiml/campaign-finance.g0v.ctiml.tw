@@ -52,6 +52,15 @@ $(document).ready(function(){
   // 記錄回答過的答案
   var submitted_answers = [];
 
+  if (localStorage) {
+    if (localStorage.submitted_answers && Array.isArray(JSON.parse(localStorage.submitted_answers))) {
+      submitted_answers = JSON.parse(localStorage.submitted_answers);
+    }
+    setInterval(function() {
+      localStorage.submitted_answers = JSON.stringify(submitted_answers);
+    }, 60000);
+  }
+
   var set_question = function(res){
       $('.cell-image').html($('<img></img>').attr('src', res.img_url).bind('error', function(){ getRandomImage(); }));
       $('.cell-info').data({
