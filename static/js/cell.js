@@ -1,5 +1,13 @@
 $(document).ready(function(){
 
+  var shadow = function() {
+    $('#ans-shadow').offset($('#ans').position());
+  }
+  $(window).resize(function(){
+    shadow();
+  });
+  shadow();
+
   var submitAnswer = function(e) {
     if (e !== undefined) {
       e.preventDefault();
@@ -25,14 +33,23 @@ $(document).ready(function(){
 
     $('#submit,#no-content').attr('disabled', 'disabled');
 
+    // trim 掉前後空白
+    ans = jQuery.trim(ans);
     var url = ['/api/fillcell/', page, "/", x, "/", y].join("");
     $.post(url, { ans: ans, sToken: $('[name="sToken"]').val() }, function(res){
       // 射後不理(?)
     });
     getRandomImage();
     $('#submit,#no-content').removeAttr('disabled');
+
+    // 將回答過的答案存起來
+    if (ans.length > 0) {
+      submitted_answers.push(ans);
+    }
   };
 
+  // 記錄回答過的答案
+  var submitted_answers = [];
 
   var set_question = function(res){
       $('.cell-image').html($('<img></img>').attr('src', res.img_url).bind('error', function(){ getRandomImage(); }));
@@ -90,6 +107,35 @@ $(document).ready(function(){
       e.preventDefault();
       submitAnswer();
     }
+  });
+
+  // 按 tab 鍵補完
+  var ans_ac_keydown = function(e) {
+    if (e.which == 9) {
+      $('#ans').val($('#ans-shadow').val());
+    }
+  }
+
+  // 找出自動完成
+  var ans_ac_input = function(e) {
+    var ans = $('#ans').val();
+    if (ans === "") {
+      $('#ans-shadow').val("");
+      return;
+    }
+    var candidates = submitted_answers.filter(function(a) {
+      return a.match("^" + ans + ".+");
+    });
+    $('#ans-shadow').val((candidates.length > 0) ? candidates.sort()[0] : "");
+  };
+
+  $('#autocomplete-trigger').change(function() {
+    if ($('#autocomplete-trigger').is(":checked")) {
+      $('#ans').bind('input', ans_ac_input).bind('keydown', ans_ac_keydown);
+    } else {
+      $('#ans').unbind('input', ans_ac_input).unbind('keydown', ans_ac_keydown);
+    }
+    $('#ans-shadow').toggle();
   });
 
 });

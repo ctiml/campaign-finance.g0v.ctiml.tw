@@ -2,7 +2,8 @@
 <div class="container">
     <h3>請填入圖片中的數字、文字或日期</h3>
     <input type="hidden" name="sToken" value="<?= $this->sToken ?>"/>
-    <input id="ans" class="form-control" type="text" name="ans" tabindex="1" />
+    <input id="ans" class="form-control ans" type="text" name="ans" tabindex="1" />
+    <input id="ans-shadow" class="form-control ans-shadow" type="text" readonly="true" tabindex="-1" style="display: none"/>
     <button id="submit" class="btn btn-primary submit" tabindex="2">　送出　</button>
     <button id="no-content" class="btn no-content" tabindex="3">這是空白</button>
     <!-- <button id="next" tabindex="10">下一張</button> -->
@@ -10,8 +11,11 @@
 
     <div id="quick-answers">
         <a id="quick-trigger"><span class="open-close">開啟</span>快速輸入</a>
-        <?= $this->partial('/cell/_quick_answer.phtml', $this) ?>
+        <label class="autocomplete">
+            <input type="checkbox" id="autocomplete-trigger" class="checkbox" tabindex="-1"> 自動完成<span class="tip">(實驗性功能。使用 tab 鍵自動完成)</span>
+        </label>
     </div>
+    <?= $this->partial('/cell/_quick_answer.phtml', $this) ?>
     <div>
         <span class="cell-info"></span>
         <button id="confirm" class="btn confirm" tabindex="5566" style="display: none;">這答案沒錯</button>
