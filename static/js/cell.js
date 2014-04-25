@@ -111,8 +111,8 @@ $(document).ready(function(){
 
   // 按 tab 鍵補完
   var ans_ac_keydown = function(e) {
-    if (e.which == 9) {
-      $('#ans').val($('#ans-shadow').val());
+    if (e.which == 9 && $('#ans-shadow').val() !== "") {
+        $('#ans').val($('#ans-shadow').val());
     }
   }
 
