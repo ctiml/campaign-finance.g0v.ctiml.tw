@@ -43,7 +43,7 @@ $(document).ready(function(){
     $('#submit,#no-content').removeAttr('disabled');
 
     // 將回答過的答案存起來
-    if (ans.length > 0) {
+    if (ans.length > 0 && submitted_answers.indexOf(ans) === -1) {
       submitted_answers.push(ans);
     }
   };
