@@ -46,6 +46,7 @@ $(document).ready(function(){
     if (ans.length > 0 && submitted_answers.indexOf(ans) === -1) {
       submitted_answers.push(ans);
     }
+    $('#ans-shadow').val("");
   };
 
   // 記錄回答過的答案
