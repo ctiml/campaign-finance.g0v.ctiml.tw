@@ -122,10 +122,17 @@ $(document).ready(function(){
   // 按 tab 鍵補完
   var ans_ac_keydown = function(e) {
     var ans_shadow = $('#ans-shadow').val();
-    if (e.which == 9 && ans_shadow !== "" && ans_shadow !== $('#ans').val()) {
+
+    if (ans_shadow == "" || ans_shadow == $('#ans').val())
+      return;
+    // Both tab or arrow right will autocomplete */
+    if (e.which == 9 || e.which == 39) {
         $('#ans').val($('#ans-shadow').val());
         e.preventDefault();
     }
+    // work around to return focus
+    if (e.which == 9)
+        setTimeout('$("#ans").focus();$("#ans").select();', 300);
   }
 
   // 找出自動完成
