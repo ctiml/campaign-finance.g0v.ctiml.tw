@@ -113,9 +113,12 @@ $(document).ready(function(){
     if (e.which == 13) {
       if (e.shiftKey) {
         submitAnswer.apply($("#no-content")[0]);
+      } else if (e.ctrlKey) {
+        submitAnswer.apply($("#confirm")[0]);
+      } else {
+        submitAnswer();
       }
       e.preventDefault();
-      submitAnswer();
     }
   });
 
