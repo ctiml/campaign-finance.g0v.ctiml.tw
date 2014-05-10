@@ -59,9 +59,10 @@ class ApiController extends Pix_Controller
                 unset($ch['y']);
                 $history[] = $ch;
             }
+            $ans = ($cell->count > 0 && $cell->ans == null) ? "" : $cell->ans;
             return $this->jsonp(array(
                 'error' => false,
-                'value' => $cell->ans,
+                'value' => $ans,
                 'history' => $history
             ), $_GET['callback']);
         }
