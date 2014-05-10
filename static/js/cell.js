@@ -119,6 +119,19 @@ $(document).ready(function(){
     }
   });
 
+  var candidates = [];
+  var candidate_index = 0;
+  var search_candidates = function(ans, collection) {
+    return collection.filter(function(a) {
+      var escaped_ans = ans.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+      return a.match("^" + escaped_ans + ".+");
+    }).sort();
+  }
+  var find_candidate_index = function(ans_shadow) {
+    var index = candidates.indexOf(ans_shadow);
+    return (index < 0) ? 0 : index;
+  }
+
   // 按 tab 鍵補完
   var ans_ac_keydown = function(e) {
     var ans_shadow = $('#ans-shadow').val();
@@ -126,10 +139,23 @@ $(document).ready(function(){
     if (ans_shadow !== "" && ans_shadow != ans ) {
         if (e.which == 39 && this.selectionStart == ans.length && ans == ans_shadow.substr(0,ans.length)) {
             $('#ans').val(ans_shadow.substr(0,ans.length+1));
+            // 重新篩選自動完成答案
+            candidates = search_candidates($('#ans').val(), submitted_answers);
+            candidate_index = find_candidate_index($('#ans-shadow').val());
             e.preventDefault();
         } else if (e.which == 9) {
             $('#ans').val(ans_shadow);
             e.preventDefault();
+        } else if (e.which == 40) { // Arrow Down
+          if (candidates[candidate_index + 1] !== undefined) {
+            $('#ans-shadow').val(candidates[++candidate_index]);
+          }
+          e.preventDefault();
+        } else if (e.which == 38) { // Arrow Up
+          if (candidates[candidate_index - 1] !== undefined) {
+            $('#ans-shadow').val(candidates[--candidate_index]);
+          }
+          e.preventDefault();
         }
     }
   }
@@ -141,11 +167,9 @@ $(document).ready(function(){
       $('#ans-shadow').val("");
       return;
     }
-    var candidates = submitted_answers.filter(function(a) {
-      var escaped_ans = ans.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-      return a.match("^" + escaped_ans + ".+");
-    });
-    $('#ans-shadow').val((candidates.length > 0) ? candidates.sort()[0] : "");
+    candidates = search_candidates(ans, submitted_answers);
+    candidate_index = find_candidate_index($('#ans-shadow').val());
+    $('#ans-shadow').val((candidates.length > 0) ? candidates[candidate_index] : "");
   };
 
   $('#autocomplete-trigger').change(function() {
