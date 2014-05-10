@@ -122,9 +122,15 @@ $(document).ready(function(){
   // 按 tab 鍵補完
   var ans_ac_keydown = function(e) {
     var ans_shadow = $('#ans-shadow').val();
-    if (e.which == 9 && ans_shadow !== "" && ans_shadow !== $('#ans').val()) {
-        $('#ans').val($('#ans-shadow').val());
-        e.preventDefault();
+    var ans = $('#ans').val();
+    if (ans_shadow !== "" && ans_shadow != ans ) {
+        if (e.which == 39 && this.selectionStart == ans.length && ans == ans_shadow.substr(0,ans.length)) {
+            $('#ans').val(ans_shadow.substr(0,ans.length+1));
+            e.preventDefault();
+        } else if (e.which == 9) {
+            $('#ans').val(ans_shadow);
+            e.preventDefault();
+        }
     }
   }
 
