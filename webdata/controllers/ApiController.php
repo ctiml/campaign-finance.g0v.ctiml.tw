@@ -103,6 +103,9 @@ class ApiController extends Pix_Controller
         shuffle($cells);
         return $this->json(array_map(function($r){
             $r['img_url'] = "http://" . strval(getenv('CAMPAIGN_FINANCE_RONNY')) . "/api/getcellimage/{$r['page']}/{$r['x']}/{$r['y']}.png";
+            if ($r['count'] > 0 && $r['ans'] == null) {
+                $r['ans'] = "";
+            }
             return $r;
         }, array_slice($cells, 0, 10)));
     }
