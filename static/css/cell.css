@@ -1,3 +1,6 @@
+body {
+    padding-top: 40px;
+}
 .submit,.no-content {
     margin-bottom: 10px;
 }

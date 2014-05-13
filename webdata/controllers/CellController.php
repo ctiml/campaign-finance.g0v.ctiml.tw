@@ -13,5 +13,8 @@ class CellController extends Pix_Controller
 
     public function indexAction()
     {
+        if ($user_id = Pix_Session::get('user_id')) {
+            $this->view->user = User::search(array('id' => $user_id))->first();
+        }
     }
 }

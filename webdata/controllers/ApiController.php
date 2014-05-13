@@ -19,9 +19,14 @@ class ApiController extends Pix_Controller
         
         $values = array('page' => $page, 'x' => $x, 'y' => $y);
         $cell = Cell::search($values)->first();
+
+        if ($user_id = Pix_Session::get('user_id')) {
+            $user_score = UserScore::search(array('id' => $user_id))->first();
+        }
         CellHistory::insert(array_merge($values, array(
             'ans' => $ans,
             'client_ip' => $_SERVER["REMOTE_ADDR"],
+            'user_id' => ($user_id) ? $user_id : 0,
             'created' => time()
         )));
         $count = intval($cell->count) + 1;
@@ -32,6 +37,9 @@ class ApiController extends Pix_Controller
         } catch (Pix_Table_DuplicateException $e) {
             $cell = Cell::search($values)->first();
             $cell->update(array('ans' => $ans, 'count' => $count));
+        }
+        if ($user_score) {
+            $user_score->update(array('ans_count' => intval($user_score->ans_count) + 1));
         }
         return $this->noview();
     }
@@ -55,6 +63,7 @@ class ApiController extends Pix_Controller
                 $ch['row'] = $ch['x'];
                 $ch['col'] = $ch['y'];
                 unset($ch['client_ip']);
+                unset($ch['user_id']);
                 unset($ch['x']);
                 unset($ch['y']);
                 $history[] = $ch;
