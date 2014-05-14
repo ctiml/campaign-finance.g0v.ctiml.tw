@@ -23,7 +23,6 @@ class UserController extends Pix_Controller
                         $user = User::insert(array(
                             'name' => '',
                             'email' => $email,
-                            'ans_count' => 0,
                             'created' => time()
                         ));
                         UserScore::insert(array(
