@@ -62,20 +62,24 @@ $(document).ready(function(){
   }
 
   var set_question = function(res){
-      $('.cell-image').html($('<img></img>').attr('src', res.img_url).bind('error', function(){ getRandomImage(); }));
-      $('.cell-info').data({
-        page: res.page,
-        x: res.x,
-        y: res.y,
-        ans: res.ans
-      })
-      .text("")
-      .append($('<span></span>').text("第 "+res.page+" 頁 ("+res.x+", "+res.y+" )"));
+      var img = $('<img></img>').attr('src', res.img_url).bind('error', function(){ getRandomImage(); });
+      img.bind('load', function() {
+        $('.cell-image').html(img);
+        $('.cell-info').data({
+          page: res.page,
+          x: res.x,
+          y: res.y,
+          ans: res.ans
+        })
+        .text("")
+        .append($('<span></span>').text("第 "+res.page+" 頁 ("+res.x+", "+res.y+" )"));
 
-      if (res.ans !== null) {
-        $('.cell-info').append($('<span></span>').text(" 已經有" +res.count + "人填寫確認了，目前答案：").append($('<code></code>').text(res.ans)));
-        $('.confirm').show();
-      }
+        if (res.ans !== null) {
+          $('.cell-info').append($('<span></span>').text(" 已經有" +res.count + "人填寫確認了，目前答案：").append($('<code></code>').text(res.ans)));
+          $('.confirm').show();
+        }
+        $('#unclear').show();
+      });
   };
 
   var question_pools = [];
@@ -85,6 +89,7 @@ $(document).ready(function(){
     $('.cell-info').text("圖片載入中...");
     $('.confirm').hide();
     $('.cell-image').html("");
+    $('#unclear').hide();
 
     if (question_pools.length) {
         set_question(question_pools.shift());
