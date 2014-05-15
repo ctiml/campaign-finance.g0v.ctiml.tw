@@ -106,6 +106,14 @@ $(document).ready(function(){
     $('.quick-answer').toggle();
     $('.open-close').text($('.quick-answer').is(':visible') ? "關閉" : "開啟");
   });
+  $('#unclear').click(function() {
+    var page = $('.cell-info').data('page');
+    var x = $('.cell-info').data('x');
+    var y = $('.cell-info').data('y');
+    var url = ['/api/reportunclear/', page, "/", x, "/", y].join("");
+    $.post(url, { sToken: $('[name="sToken"]').val() }, function(res){});
+    getRandomImage();
+  });
 
   $('#next').click(getRandomImage);
 

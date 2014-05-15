@@ -33,3 +33,6 @@ a:hover {
     background-color: #fff !important;
     color: #c8c8c8 !important;
 }
+.cell-image {
+    padding-bottom: 15px;
+}

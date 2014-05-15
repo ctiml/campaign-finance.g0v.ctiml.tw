@@ -16,7 +16,7 @@ class ApiController extends Pix_Controller
         $x = intval($x);
         $y = intval($y);
         $ans = $_POST['ans'];
-        
+
         $values = array('page' => $page, 'x' => $x, 'y' => $y);
         $cell = Cell::search($values)->first();
 
@@ -41,6 +41,33 @@ class ApiController extends Pix_Controller
         if ($user_score) {
             $user_score->update(array('ans_count' => intval($user_score->ans_count) + 1));
         }
+        return $this->noview();
+    }
+
+    public function reportunclearAction()
+    {
+        if (!$_POST['sToken']) {
+            return $this->noview();
+        }
+        if ($_POST['sToken'] != Pix_Session::get('sToken')) {
+            return $this->noview();
+        }
+
+        list(, /*api*/, /*reportunclear*/, $page, $x, $y) = explode('/', $this->getURI());
+        $page = intval($page);
+        $x = intval($x);
+        $y = intval($y);
+
+        $user_id = Pix_Session::get('user_id');
+
+        CellUnclearHistory::insert(array(
+            'page' => $page,
+            'x' => $x,
+            'y' => $y,
+            'client_ip' => $_SERVER["REMOTE_ADDR"],
+            'user_id' => ($user_id) ? $user_id : 0,
+            'created' => time()
+        ));
         return $this->noview();
     }
 
