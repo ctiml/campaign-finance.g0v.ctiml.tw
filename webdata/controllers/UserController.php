@@ -4,7 +4,7 @@ class UserController extends Pix_Controller
 {
     public function init()
     {
-        $this->openid = new LightOpenID('campaign-finance.g0v.ctiml.tw');
+        $this->openid = new LightOpenID($_SERVER['HTTP_HOST']);
     }
 
     public function googleAction()
