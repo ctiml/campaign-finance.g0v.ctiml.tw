@@ -43,13 +43,6 @@ class UserController extends Pix_Controller
         $user_id = Pix_Session::get('user_id');
         $user = User::search(array('id' => $user_id));
         
-        if (!$fp) {
-            echo "Not logged in";
-            echo "<form action=\"/user/google\" method=\"post\"><button>Login</button></form>";
-        } else {
-            echo $fp . " logged in";
-            echo "<form action=\"/user/logout\" method=\"post\"><button>Logout</button></form>";
-        }
         $this->noview();
     }
 
