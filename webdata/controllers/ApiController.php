@@ -4,10 +4,7 @@ class ApiController extends Pix_Controller
 {
     public function fillcellAction()
     {
-        if (!$_POST['sToken']) {
-            return $this->noview();
-        }
-        if ($_POST['sToken'] != Pix_Session::get('sToken')) {
+        if (!$this->checkAuthorized($_POST['sToken'], $_POST['apikey'])) {
             return $this->noview();
         }
 
@@ -46,10 +43,7 @@ class ApiController extends Pix_Controller
 
     public function reportunclearAction()
     {
-        if (!$_POST['sToken']) {
-            return $this->noview();
-        }
-        if ($_POST['sToken'] != Pix_Session::get('sToken')) {
+        if (!$this->checkAuthorized($_POST['sToken'], $_POST['apikey'])) {
             return $this->noview();
         }
 
@@ -69,6 +63,17 @@ class ApiController extends Pix_Controller
             'created' => time()
         ));
         return $this->noview();
+    }
+
+    protected function checkAuthorized($token, $apikey = NULL)
+    {
+        if ($apikey != NULL && ApiKey::exists($apikey)) {
+            return true;
+        }
+        if ($token && $token == Pix_Session::get('sToken')) {
+            return true;
+        }
+        return false;
     }
 
     public function getcellvalueAction()
