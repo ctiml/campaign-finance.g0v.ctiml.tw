@@ -7,6 +7,7 @@ class ApiController extends Pix_Controller
         $apikey_id = $this->getApiKeyId($_POST['apikey']);
         if ($apikey_id == 0) {
             if (!$_POST['sToken'] || $_POST['sToken'] != Pix_Session::get('sToken')) {
+                header('HTTP/1.1 403 Forbidden');
                 return $this->noview();
             }
         }
@@ -50,6 +51,7 @@ class ApiController extends Pix_Controller
         $apikey_id = $this->getApiKeyId($_POST['apikey']);
         if ($apikey_id == 0) {
             if (!$_POST['sToken'] || $_POST['sToken'] != Pix_Session::get('sToken')) {
+                header('HTTP/1.1 403 Forbidden');
                 return $this->noview();
             }
         }
