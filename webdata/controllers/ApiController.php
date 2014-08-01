@@ -110,6 +110,7 @@ class ApiController extends Pix_Controller
                 unset($ch['user_id']);
                 unset($ch['x']);
                 unset($ch['y']);
+                unset($ch['apikey_id']);
                 $history[] = $ch;
             }
             $ans = ($cell->count > 0 && $cell->ans == null) ? "" : $cell->ans;
