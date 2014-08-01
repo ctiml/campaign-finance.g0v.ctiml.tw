@@ -15,5 +15,6 @@ class CellHistory extends Pix_Table
         $this->_columns['client_ip'] = array('type' => 'string');
         $this->_columns['created'] = array('type' => 'int');
         $this->_columns['user_id'] = array('type' => 'int', 'default' => 0);
+        $this->_columns['apikey_id'] = array('type' => 'int', 'default' => 0);
     }
 }
