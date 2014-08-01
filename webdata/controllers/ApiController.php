@@ -4,8 +4,11 @@ class ApiController extends Pix_Controller
 {
     public function fillcellAction()
     {
-        if (!$this->checkAuthorized($_POST['sToken'], $_POST['apikey'])) {
-            return $this->noview();
+        $apikey_id = $this->getApiKeyId($_POST['apikey']);
+        if ($apikey_id == 0) {
+            if (!$_POST['sToken'] || $_POST['sToken'] != Pix_Session::get('sToken')) {
+                return $this->noview();
+            }
         }
 
         list(, /*api*/, /*fillcell*/, $page, $x, $y) = explode('/', $this->getURI());
@@ -24,6 +27,7 @@ class ApiController extends Pix_Controller
             'ans' => $ans,
             'client_ip' => $_SERVER["REMOTE_ADDR"],
             'user_id' => ($user_id) ? $user_id : 0,
+            'apikey_id' => $apikey_id,
             'created' => time()
         )));
         $count = intval($cell->count) + 1;
@@ -43,8 +47,11 @@ class ApiController extends Pix_Controller
 
     public function reportunclearAction()
     {
-        if (!$this->checkAuthorized($_POST['sToken'], $_POST['apikey'])) {
-            return $this->noview();
+        $apikey_id = $this->getApiKeyId($_POST['apikey']);
+        if ($apikey_id == 0) {
+            if (!$_POST['sToken'] || $_POST['sToken'] != Pix_Session::get('sToken')) {
+                return $this->noview();
+            }
         }
 
         list(, /*api*/, /*reportunclear*/, $page, $x, $y) = explode('/', $this->getURI());
@@ -60,20 +67,23 @@ class ApiController extends Pix_Controller
             'y' => $y,
             'client_ip' => $_SERVER["REMOTE_ADDR"],
             'user_id' => ($user_id) ? $user_id : 0,
+            'apikey_id' => $apikey_id,
             'created' => time()
         ));
         return $this->noview();
     }
 
-    protected function checkAuthorized($token, $apikey = NULL)
+    protected function getApiKeyId($key)
     {
-        if ($apikey != NULL && ApiKey::exists($apikey)) {
-            return true;
+        if ($key == NULL) {
+            return 0;
         }
-        if ($token && $token == Pix_Session::get('sToken')) {
-            return true;
+        $apikey = ApiKey::search(array('key' => $key))->first();
+        if ($apikey) {
+            return $apikey->id;
+        } else {
+            return 0;
         }
-        return false;
     }
 
     public function getcellvalueAction()
