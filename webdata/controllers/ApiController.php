@@ -130,6 +130,22 @@ class ApiController extends Pix_Controller
             return $this->jsonp(array('error' => 'true', 'message' => 'page not found'), $_GET['callback']);
         }
 
+        $histories = array();
+        foreach(array_values(CellHistory::search(array('page' => $page))->order('created DESC')->toArray()) as $ch) {
+            $id = $ch['x'] . '-' . $ch['y'];
+            if (!array_key_exists($id, $histories)) {
+                $histories[$id] = array();
+            }
+            $ch['encrypted_client_ip'] = crc32($ch['client_ip'] . strval(getenv(IP_CLOAK_SECRET)));
+            $ch['row'] = $ch['x'];
+            $ch['col'] = $ch['y'];
+            unset($ch['client_ip']);
+            unset($ch['user_id']);
+            unset($ch['x']);
+            unset($ch['y']);
+            unset($ch['apikey_id']);
+            $histories[$id][] = $ch;
+        }
         $cells = Cell::search(array('page' => $page))->order('page, x, y ASC');
         $json = array();
         foreach ($cells as $cell) {
@@ -138,6 +154,7 @@ class ApiController extends Pix_Controller
                 'row' => $cell->x,
                 'col' => $cell->y,
                 'ans' => $cell->ans
+                'histories' => $histories[$cell->x .'-' . $cell->y],
             ));
         }
         return $this->jsonp($json, $_GET['callback']);
