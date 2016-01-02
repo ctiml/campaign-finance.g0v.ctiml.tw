@@ -153,7 +153,7 @@ class ApiController extends Pix_Controller
                 'page' => $cell->page,
                 'row' => $cell->x,
                 'col' => $cell->y,
-                'ans' => $cell->ans
+                'ans' => $cell->ans,
                 'histories' => $histories[$cell->x .'-' . $cell->y],
             ));
         }
