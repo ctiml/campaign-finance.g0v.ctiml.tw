@@ -1,20 +1,21 @@
 <?= $this->partial('/common/header.phtml', $this) ?>
-<div class="header-img">
-  <!-- <img src="/static/img/main.jpg" /> -->
-  <div class="header-img-content"></div>
-</div>
+<div class="header-img"></div>
+<div class="header-mobile">數讀政治獻金 鄉民一起來</div>
 <?= $this->partial('/index/_counter.phtml', $this) ?>
-<div class="container">
+<div class="content">
     <h3>請填入圖片中的數字、文字或日期</h3>
     <input type="hidden" name="sToken" value="<?= $this->sToken ?>"/>
     <input id="ans" class="form-control ans" type="text" name="ans" tabindex="1" />
     <input id="ans-shadow" class="form-control ans-shadow" type="text" readonly="true" tabindex="-1" style="display: none"/>
-    <button id="submit" class="btn btn-cf submit" tabindex="2">　送出　</button>
-    <button id="no-content" class="btn btn-cf no-content" tabindex="3">這是空白</button>
-    <button id="right-ans" class="btn btn-cf right-ans" tabindex="4">這答案沒錯</button>
+    <span class="button-group">
+        <button id="submit" class="btn btn-cf submit" tabindex="2">　送出　</button>
+        <button id="no-content" class="btn btn-cf no-content" tabindex="3">這是空白</button>
+        <button id="right-ans" class="btn btn-cf right-ans" tabindex="4">這答案沒錯</button>
+    </span>
     <!-- <button id="next" tabindex="10">下一張</button> -->
     <!-- <span class="tip">Enter: 送出 / shift+Enter: 這是空白 / ctrl+Enter: 這答案沒錯</span> -->
     <div class="tip">
+        <span class="tip-space"></span>
         <span class="tip-text">Enter</span>
         <span class="tip-text">shift+Enter</span>
         <span class="tip-text">ctrl+Enter</span>
