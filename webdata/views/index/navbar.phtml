@@ -1,0 +1,28 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <ul class="nav pull-right">
+      <?php if (isset($this->user)) { ?>
+      <li><span class="navbar-text"><?= $this->user->email ?></span></li>
+      <li><a class="logout" href="#">Logout</a></li>
+      <?php } else { ?>
+      <li><a class="login" href="#">Login</a></li>
+      <?php } ?>
+    </ul>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+  $('.navbar .nav .login').click(function() {
+    $('<form></form>').attr({
+      action: '/user/google',
+      method: 'post'
+    }).submit();
+  });
+  $('.navbar .nav .logout').click(function() {
+    $('<form></form>').attr({
+      action: '/user/logout',
+      method: 'post'
+    }).submit();
+  });
+});
+</script>

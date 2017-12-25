@@ -62,6 +62,7 @@ $(document).ready(function(){
   }
 
   var set_question = function(res){
+      if (typeof(res) === 'undefined') { return; }
       var img = $('<img></img>').attr('src', res.img_url).bind('error', function(){ getRandomImage(); });
       img.bind('load', function() {
         $('.cell-image').html(img);

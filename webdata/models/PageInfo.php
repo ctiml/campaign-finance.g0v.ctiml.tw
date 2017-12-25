@@ -14,7 +14,7 @@ class PageInfo extends Pix_Table
     public function addPage($id)
     {
         if (PageInfo::find($id)) {
-            continue;
+            return;
         }
         $url = 'http://' . getenv('CAMPAIGN_FINANCE_RONNY') . '/api/tables/' . intval($id);
         $curl = curl_init($url);

@@ -1,37 +1,95 @@
 body {
-    padding-top: 40px;
+    padding-top: 0;
 }
-.submit,.no-content {
+
+.container {
+    margin-top: 25px;
+    margin-left: 220px;
+}
+
+/**/
+.header-img {
+    background-color: #F5A623;
+    padding-left: 215px;
+    height: 266px;
+}
+.header-img-content {
+    background: url('../img/main.png') no-repeat;
+    height: 266px;
+}
+.counter-bar {
+    color: #CECECE;
+    padding-left: 220px;
+    background-color: #4A4A4A;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+}
+.counter-number {
+    color: #F5A623;
+    font-size: 24px;
+}
+
+.btn-cf {
+    color: #fff;
+    background-color: #F5A623;
+    background-image: linear-gradient(to bottom, #F5A623, #F5A623);
+    text-shadow: none;
     margin-bottom: 10px;
+    width: 100px;
+}
+/**/
+
+.submit,.no-content {
+    /* margin-bottom: 10px; */
 }
 a:hover {
     cursor: pointer;
 }
 .tip {
+    padding-left: 238px;
+}
+.tip-text {
     color: #bbb;
-    padding-left: 10px;
+    display: inline-block;
+    padding: 0;
+    width: 100px;
+    text-align: center;
+}
+.tip-autocomplete {
+    color: #bbb;
+    padding: 0 10px;
 }
 .quick-answer {
     display: none;
+}
+.quick-answers {
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 .qa-group {
     margin-bottom: 3px;
 }
 .autocomplete {
     display: inline;
-    margin-left: 30px;
+    /* margin-left: 30px; */
 }
 .autocomplete .checkbox{
     margin-bottom: 6px;
 }
 .ans {
     background-color: transparent !important;
+    width: 220px;
 }
 .ans-shadow {
     position: absolute !important;
     z-index: -1;
     background-color: #fff !important;
     color: #c8c8c8 !important;
+    width: 220px;
+}
+.cell-info {
+    color: #bbb;
 }
 .cell-image {
     padding-bottom: 15px;

@@ -1,51 +1,38 @@
 <?= $this->partial('/common/header.phtml', $this) ?>
-<div class="container">
-    <div class="jumbotron">
-        <h2>政治獻金數位化</h2>
-        <span class="lead">鄉民一起來</span>
-        <a class="btn btn-primary btn-medium" href="/cell">+1 »</a>
-        <p></p>
-        <div>目前資料已經有 <span id="counter" class="lead"><?= $this->count ?></span> 筆，還有 <span id="todo" class="lead"></span> 筆未輸入</div>
-    </div>
-    <hr>
-    <div class="alert alert-warning">本站政治獻金資料收集僅供學術交流使用，嚴禁營利、徵信，或其他不正當目的之使用</div>
-    <div class="row-fluid">
-        <h3>政治獻金認領及圖檔上傳回報</h3>
-            <p style="font-size: 16px; margin-bottom: 25px">把你掃描的 pdf 圖檔放上 Google Drive, Dropbox, mega 等網路空間，提供連結讓我們下載。所有上傳為匿名。</p>
-            <p class="lead">鄉民參戰 SOP <a href="http://bit.ly/PoliticalContribution" target="_blank">http://bit.ly/PoliticalContribution</a></p>
-            <p class="lead">歡迎認領任務 <a href="http://bit.ly/CYsunshinetodo" target="_blank">http://bit.ly/CYsunshinetodo</a></p>
-            <p class="lead">上傳掃描圖檔 <a href="http://bit.ly/UploadPoliticalContribution" target="_blank">http://bit.ly/UploadPoliticalContribution</a></p>
-            <p class="lead">圖檔處理現況 <a href="http://bit.ly/ScanPoliticalContribution" target="_blank">http://bit.ly/ScanPoliticalContribution</a></p>
-    </div>
-    <div class="fb-like-box" data-href="https://www.facebook.com/cy.sunshine" data-width="940" data-height="180" data-colorscheme="light" data-show-faces="true" data-header="false" data-stream="false" data-show-border="false"></div>
-    <hr>
-    <div class="row-fluid">
-        <h3>API</h3>
-        <h5>取得指定頁所有欄位的值</h5>
-        <code>http://campaign-finance.g0v.ctiml.tw/api/getcells/345</code>
-        <h5>取得單一欄位的值</h5>
-        <code>http://campaign-finance.g0v.ctiml.tw/api/getcellvalue/345/6/7</code>
-        <h5>取得已經處理完成的頁面列表 ( <?= count(PageDone::search(1)) ?> / <?= count(PageInfo::search(1)) ?> )</h5>
-        <code>http://campaign-finance.g0v.ctiml.tw/api/getdonepages</code>
-    </div>
-    <hr>
-    <div class="row-fluid">
-        <h5>資料來源：Ronny Wang</h5>
-        <a href="http://ronnywang.pixnet.net/blog/post/40488349">抓出政治獻金掃描文件中的每一個欄位</a>
-        <p></p>
-        <div class="author" style="color: #bbb">
-            <a style="color: #9be" target="_blank" href="http://ctiml.tw">@ctiml</a> / Timothy Lee
-        </div>
-    </div>
+<div class="header-img">
+  <!-- <img src="/static/img/main.jpg" /> -->
+  <div class="header-img-content"></div>
 </div>
-<a href="https://github.com/ctiml/campaign-finance.g0v.ctiml.tw"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/zh_TW/all.js#xfbml=1&appId=221258024717323";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<script src="/static/js/index.js"></script>
+<?= $this->partial('/index/_counter.phtml', $this) ?>
+<div class="container">
+    <h3>請填入圖片中的數字、文字或日期</h3>
+    <input type="hidden" name="sToken" value="<?= $this->sToken ?>"/>
+    <input id="ans" class="form-control ans" type="text" name="ans" tabindex="1" />
+    <input id="ans-shadow" class="form-control ans-shadow" type="text" readonly="true" tabindex="-1" style="display: none"/>
+    <button id="submit" class="btn btn-cf submit" tabindex="2">　送出　</button>
+    <button id="no-content" class="btn btn-cf no-content" tabindex="3">這是空白</button>
+    <button id="right-ans" class="btn btn-cf right-ans" tabindex="4">這答案沒錯</button>
+    <!-- <button id="next" tabindex="10">下一張</button> -->
+    <!-- <span class="tip">Enter: 送出 / shift+Enter: 這是空白 / ctrl+Enter: 這答案沒錯</span> -->
+    <div class="tip">
+        <span class="tip-text">Enter</span>
+        <span class="tip-text">shift+Enter</span>
+        <span class="tip-text">ctrl+Enter</span>
+    </div>
+
+    <div id="quick-answers" class="quick-answers">
+        <!-- <a id="quick-trigger"><span class="open-close">開啟</span>快速輸入</a> -->
+        <label class="autocomplete">
+            <input type="checkbox" id="autocomplete-trigger" class="checkbox" tabindex="-1"> 自動完成<span class="tip-autocomplete">(實驗性功能。使用 tab 鍵自動完成)</span>
+        </label>
+    </div>
+    <div>
+        <span class="cell-info"></span>
+        <button id="confirm" class="btn btn-success confirm" tabindex="5566" style="display: none;">這答案沒錯</button>
+    </div>
+    <div class="cell-image"></div>
+    <button id="unclear" class="btn btn-warning unclear" tabindex="-1" style="display: none;">圖片不清楚</button>
+</div>
+<script src="/static/js/cell.js"></script>
+<link rel="stylesheet" href="/static/css/cell.css">
 <?= $this->partial('/common/footer.phtml', $this) ?>
