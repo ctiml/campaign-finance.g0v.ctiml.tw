@@ -16,7 +16,6 @@ class IndexController extends Pix_Controller
         if ($user_id = Pix_Session::get('user_id')) {
             $this->view->user = User::search(array('id' => $user_id))->first();
         }
-        //$this->view->count = KeyValue::get('cache_count');
-        $this->view->count = 1000;
+        $this->view->count = KeyValue::get('cache_count');
     }
 }
