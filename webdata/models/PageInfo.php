@@ -36,7 +36,7 @@ class PageInfo extends Pix_Table
         ));
 
         $insert = array();
-        foreach (array(2, 3, 4, 5, 6, 7, 8, 9) as $column) {
+        foreach (array(/*1,*/ 2,/* 3,*/ 4, 5, 6,/* 7, 8,*/ 9) as $column) {
             for ($row = 2; $row <= count($json->data->tables); $row ++) {
                 $insert[] = array($id, $row, $column, 0);
             }
