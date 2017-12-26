@@ -271,7 +271,7 @@ class ApiController extends Pix_Controller
     {
         list($page, $x, $y, $ans, $count) = $this->getrandom();
 
-        $api_url = "http://" . strval(getenv(CAMPAIGN_FINANCE_RONNY)) . "/api/getcellimage";
+        $api_url = "https://" . strval(getenv(CAMPAIGN_FINANCE_RONNY)) . "/api/getcellimage";
         $img_url = $api_url . "/" . $page . "/" . $x . "/" . $y . ".png";
 
         return $this->json(array(
