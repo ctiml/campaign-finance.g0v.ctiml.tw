@@ -1,6 +1,6 @@
 $(document).ready(function(){
   var timer = null;
-  var period = 1000;
+  var period = 10000;
   
   var updateCount = function() {
     $.get('/api/getcellcount', function(res){
