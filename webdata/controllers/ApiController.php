@@ -176,7 +176,7 @@ class ApiController extends Pix_Controller
         return $this->json(array_map(function($r){
             $x = intval($r['x']) - 1;
             $y = intval($r['y']) - 1;
-            $r['img_url'] = "http://" . strval(getenv('CAMPAIGN_FINANCE_PIC_RONNY')) . "/{$r['page']}/{$x}-{$y}.png";
+            $r['img_url'] = "https://" . strval(getenv('CAMPAIGN_FINANCE_PIC_RONNY')) . "/{$r['page']}/{$x}-{$y}.png";
             if ($r['count'] > 0 && $r['ans'] == null) {
                 $r['ans'] = "";
             }
