@@ -10,5 +10,5 @@ $(document).ready(function(){
     });
   };
 
-  setTimeout(updateCount, period);
+  updateCount();
 });
