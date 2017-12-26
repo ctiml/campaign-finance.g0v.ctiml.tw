@@ -123,6 +123,21 @@ a:hover {
     padding-bottom: 15px;
 }
 
+.related-link {
+    width: 822px;
+    margin: auto;
+}
+.related-link div {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.related-link ul {
+    margin: 0;
+    padding: 0;
+}
+.related-link ul li {
+    list-style-type: none;
+}
 @media (max-width: 860px) {
     .counter-bar-content {
         width: 700px;
@@ -133,6 +148,9 @@ a:hover {
     .header-img {
         background-size: auto 220px;
         height: 220px;
+    }
+    .related-link {
+        width: 700px;
     }
 }
 @media (max-width: 754px) {
@@ -145,6 +163,9 @@ a:hover {
     .header-img {
         background-size: auto 190px;
         height: 190px;
+    }
+    .related-link {
+        width: 600px;
     }
 }
 @media (max-width: 575px) {
@@ -159,6 +180,9 @@ a:hover {
     }
     .header-mobile {
         display: block;
+    }
+    .related-link {
+        width: 368px;
     }
     .button-group {
         display: block;
