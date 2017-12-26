@@ -15,15 +15,15 @@ $(document).ready(function(){
 
     var ans = $('#ans').val();
 
-    if ($(this).hasClass("confirm")) {
+    if ($(this).hasClass('confirm')) {
       ans = $('.cell-info').data('ans');
     }
 
-    if ($(this).hasClass("quick-answer")) {
+    if ($(this).hasClass('quick-answer')) {
         ans = $(this).data('answer');
     }
 
-    if (ans === "" && $(this).hasClass("no-content") === false && $(this).hasClass("confirm") === false) {
+    if (ans === '' && $(this).hasClass('no-content') === false && $(this).hasClass('confirm') === false) {
       return;
     }
 
@@ -35,7 +35,7 @@ $(document).ready(function(){
 
     // trim 掉前後空白
     ans = jQuery.trim(ans);
-    var url = ['/api/fillcell/', page, "/", x, "/", y].join("");
+    var url = ['/api/fillcell/', page, '/', x, '/', y].join('');
     $.post(url, { ans: ans, sToken: $('[name="sToken"]').val() }, function(res){
       // 射後不理(?)
     });
@@ -46,7 +46,7 @@ $(document).ready(function(){
     if (ans.length > 0 && submitted_answers.indexOf(ans) === -1) {
       submitted_answers.push(ans);
     }
-    $('#ans-shadow').val("");
+    $('#ans-shadow').val('');
   };
 
   // 記錄回答過的答案
@@ -72,11 +72,11 @@ $(document).ready(function(){
           y: res.y,
           ans: res.ans
         })
-        .text("")
-        .append($('<span></span>').text("第 "+res.page+" 頁 ("+res.x+", "+res.y+" )"));
+        .text('')
+        .append($('<span></span>').text('第 '+res.page+' 頁 ('+res.x+', '+res.y+' )'));
 
         if (res.ans !== null) {
-          $('.cell-info').append($('<span></span>').text(" 已經有" +res.count + "人填寫確認了，目前答案：").append($('<code></code>').text(res.ans)));
+          $('.cell-info').append($('<span></span>').text(' 已經有' +res.count + '人填寫確認了，目前答案：').append($('<code></code>').text(res.ans)));
           //$('.confirm').show();
           $('.confirm').removeClass('disabled');
         }
@@ -87,11 +87,11 @@ $(document).ready(function(){
   var question_pools = [];
 
   var getRandomImage = function() {
-    $('#ans').val("").focus();
-    $('.cell-info').text("圖片載入中...");
+    $('#ans').val('').focus();
+    $('.cell-info').text('圖片載入中...');
     //$('.confirm').hide();
     $('.confirm').addClass('disabled');
-    $('.cell-image').html("");
+    $('.cell-image').html('');
     $('#unclear').hide();
 
     if (question_pools.length) {
@@ -112,13 +112,13 @@ $(document).ready(function(){
   $('.quick-answer').click(submitAnswer);
   $('#quick-trigger').click(function(){
     $('.quick-answer').toggle();
-    $('.open-close').text($('.quick-answer').is(':visible') ? "關閉" : "開啟");
+    $('.open-close').text($('.quick-answer').is(':visible') ? '關閉' : '開啟');
   });
   $('#unclear').click(function() {
     var page = $('.cell-info').data('page');
     var x = $('.cell-info').data('x');
     var y = $('.cell-info').data('y');
-    var url = ['/api/reportunclear/', page, "/", x, "/", y].join("");
+    var url = ['/api/reportunclear/', page, '/', x, '/', y].join('');
     $.post(url, { sToken: $('[name="sToken"]').val() }, function(res){});
     getRandomImage();
   });
@@ -128,9 +128,9 @@ $(document).ready(function(){
   $('#ans').keypress(function(e) {
     if (e.which == 13) {
       if (e.shiftKey) {
-        submitAnswer.apply($("#no-content")[0]);
+        submitAnswer.apply($('#no-content')[0]);
       } else if (e.ctrlKey) {
-        submitAnswer.apply($("#confirm")[0]);
+        submitAnswer.apply($('#confirm')[0]);
       } else {
         submitAnswer();
       }
@@ -143,7 +143,7 @@ $(document).ready(function(){
   var search_candidates = function(ans, collection) {
     return collection.filter(function(a) {
       var escaped_ans = ans.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-      return a.match("^" + escaped_ans + ".+");
+      return a.match('^' + escaped_ans + '.+');
     }).sort();
   }
   var find_candidate_index = function(ans_shadow) {
@@ -155,7 +155,7 @@ $(document).ready(function(){
   var ans_ac_keydown = function(e) {
     var ans_shadow = $('#ans-shadow').val();
     var ans = $('#ans').val();
-    if (ans_shadow !== "" && ans_shadow != ans ) {
+    if (ans_shadow !== '' && ans_shadow != ans ) {
         if (e.which == 39 && this.selectionStart == ans.length && ans == ans_shadow.substr(0,ans.length)) {
             $('#ans').val(ans_shadow.substr(0,ans.length+1));
             // 重新篩選自動完成答案
@@ -182,17 +182,17 @@ $(document).ready(function(){
   // 找出自動完成
   var ans_ac_input = function(e) {
     var ans = $('#ans').val();
-    if (ans === "") {
-      $('#ans-shadow').val("");
+    if (ans === '') {
+      $('#ans-shadow').val('');
       return;
     }
     candidates = search_candidates(ans, submitted_answers);
     candidate_index = find_candidate_index($('#ans-shadow').val());
-    $('#ans-shadow').val((candidates.length > 0) ? candidates[candidate_index] : "");
+    $('#ans-shadow').val((candidates.length > 0) ? candidates[candidate_index] : '');
   };
 
   $('#autocomplete-trigger').change(function() {
-    if ($('#autocomplete-trigger').is(":checked")) {
+    if ($('#autocomplete-trigger').is(':checked')) {
       $('#ans').bind('input', ans_ac_input).bind('keydown', ans_ac_keydown);
     } else {
       $('#ans').unbind('input', ans_ac_input).unbind('keydown', ans_ac_keydown);
