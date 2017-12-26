@@ -60,6 +60,10 @@ body {
     background-color: #F5A623;
     color: #222;
 }
+.btn-cf.disabled {
+    background-color: #F5A623;
+    color: #eee;
+}
 /**/
 
 .submit,.no-content {

@@ -77,7 +77,8 @@ $(document).ready(function(){
 
         if (res.ans !== null) {
           $('.cell-info').append($('<span></span>').text(" 已經有" +res.count + "人填寫確認了，目前答案：").append($('<code></code>').text(res.ans)));
-          $('.confirm').show();
+          //$('.confirm').show();
+          $('.confirm').removeClass('disabled');
         }
         $('#unclear').show();
       });
@@ -88,7 +89,8 @@ $(document).ready(function(){
   var getRandomImage = function() {
     $('#ans').val("").focus();
     $('.cell-info').text("圖片載入中...");
-    $('.confirm').hide();
+    //$('.confirm').hide();
+    $('.confirm').addClass('disabled');
     $('.cell-image').html("");
     $('#unclear').hide();
 
@@ -127,7 +129,7 @@ $(document).ready(function(){
     if (e.which == 13) {
       if (e.shiftKey) {
         submitAnswer.apply($("#no-content")[0]);
-      } else if (e.ctrlKey) {
+      } else if (e.ctrlKey && $('#confirm').hasClass('disabled') === false) {
         submitAnswer.apply($("#confirm")[0]);
       } else {
         submitAnswer();
