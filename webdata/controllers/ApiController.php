@@ -174,7 +174,9 @@ class ApiController extends Pix_Controller
         $cells = array_values(Cell::search(1)->order('count ASC')->limit(100)->toArray());
         shuffle($cells);
         return $this->json(array_map(function($r){
-            $r['img_url'] = "http://" . strval(getenv('CAMPAIGN_FINANCE_RONNY')) . "/api/getcellimage/{$r['page']}/{$r['x']}/{$r['y']}.png";
+            $x = intval($r['x']) - 1;
+            $y = intval($r['y']) - 1;
+            $r['img_url'] = "http://" . strval(getenv('CAMPAIGN_FINANCE_PIC_RONNY')) . "/{$r['page']}/{$x}-{$y}.png";
             if ($r['count'] > 0 && $r['ans'] == null) {
                 $r['ans'] = "";
             }
