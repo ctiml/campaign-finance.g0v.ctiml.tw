@@ -205,6 +205,21 @@ a:hover {
         width: 600px;
     }
 }
+@media (max-width: 645px) {
+    .counter-bar-content {
+        width: 566px;
+    }
+    .content {
+        width: 566px;
+    }
+    .header-img {
+        background-size: auto 175px;
+        height: 175px;
+    }
+    .related-container {
+        width: 566px;
+    }
+}
 @media (max-width: 575px) {
     .counter-bar-content {
         width: 374px;
