@@ -1,12 +1,13 @@
 <?= $this->partial('/common/header.phtml', $this) ?>
 <div class="header-img"></div>
-<div class="header-mobile">數讀政治獻金 鄉民一起來</div>
 <?= $this->partial('/index/_counter.phtml', $this) ?>
 <div class="content">
     <h3>請填入圖片中的數字、文字或日期</h3>
-    <input type="hidden" name="sToken" value="<?= $this->sToken ?>"/>
-    <input id="ans" class="form-control ans" type="text" name="ans" tabindex="1" />
-    <input id="ans-shadow" class="form-control ans-shadow" type="text" readonly="true" tabindex="-1" style="display: none"/>
+    <span class="input-group">
+        <input type="hidden" name="sToken" value="<?= $this->sToken ?>"/>
+        <input id="ans" class="form-control ans" type="text" name="ans" tabindex="1" />
+        <input id="ans-shadow" class="form-control ans-shadow" type="text" readonly="true" tabindex="-1" style="display: none"/>
+    </span>
     <span class="button-group">
         <button id="submit" class="btn btn-cf submit" tabindex="2">　送出　</button>
         <button id="no-content" class="btn btn-cf no-content" tabindex="3">這是空白</button>
