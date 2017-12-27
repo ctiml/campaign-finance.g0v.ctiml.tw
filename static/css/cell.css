@@ -85,7 +85,10 @@ a:hover {
 .tip {
     width: 822px;
     margin: auto;
-    text-align: center;
+}
+.tip-space {
+    display: inline-block;
+    width: 252px;
 }
 .tip-text {
     color: #bbb;
@@ -271,6 +274,9 @@ a:hover {
     .tip {
         width: 374px;
     }
+    .tip-space {
+        display: none;
+    }
     .tip-text {
         width: 120px;
     }
@@ -293,64 +299,5 @@ a:hover {
 @media (max-width: 400px) {
     html {
         width: 400px;
-    }
-    .counter-bar-content {
-        width: 374px;
-        text-align: center;
-        margin: 10px auto;
-        font-size: 24px;
-        height: 90px;
-    }
-    .counter-number {
-        font-size: 36px;
-    }
-    .counter-bar-content .second-line {
-        display: block;
-    }
-    .content {
-        width: 374px;
-    }
-    .content input {
-        padding-top: 10px;
-        margin: 0 auto;
-    }
-    .header-img {
-        background-image: url('../img/top-mobile.png');
-        background-size: auto 380px;
-        height: 380px;
-    }
-    .related-container {
-        width: 374px;
-    }
-    .button-group {
-        display: block;
-        text-align: center;
-    }
-    .btn-cf {
-        padding: 0 2px;
-        width: 120px;
-        height: 36px;
-        font-size: 18px;
-    }
-    .tip {
-        width: 374px;
-    }
-    .tip-text {
-        width: 120px;
-    }
-    h3 {
-        text-align: center;
-    }
-    .input-group {
-        display: block;
-        margin: 0 auto 5px auto;
-        width: 374px;
-        text-align: center;
-    }
-    .ans {
-        width: 354px;
-    }
-    .ans-shadow {
-        width: 354px;
     }
 }
