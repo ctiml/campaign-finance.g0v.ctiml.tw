@@ -186,6 +186,9 @@ a:hover {
         background-size: auto 220px;
         height: 220px;
     }
+    .tip {
+        width: 700px;
+    }
     .related-container {
         width: 700px;
     }
@@ -201,6 +204,9 @@ a:hover {
         background-size: auto 190px;
         height: 190px;
     }
+    .tip {
+        width: 600px;
+    }
     .related-container {
         width: 600px;
     }
@@ -215,6 +221,9 @@ a:hover {
     .header-img {
         background-size: auto 175px;
         height: 175px;
+    }
+    .tip {
+        width: 566px;
     }
     .related-container {
         width: 566px;
