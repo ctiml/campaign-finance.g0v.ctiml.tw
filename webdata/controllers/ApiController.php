@@ -166,6 +166,7 @@ class ApiController extends Pix_Controller
         return $this->jsonp(array(
             'count' => intval($count),
             'todo' => intval(KeyValue::get('cache_count_todo')),
+            'round' => intval(KeyValue::get('cache_fill_round')),
         ), $_GET['callback']);
     }
 
