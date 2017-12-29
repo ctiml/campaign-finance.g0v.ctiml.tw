@@ -1,13 +1,5 @@
 $(document).ready(function(){
 
-  var shadow = function() {
-    $('#ans-shadow').offset($('#ans').position());
-  }
-  $(window).resize(function(){
-    shadow();
-  });
-  shadow();
-
   var submitAnswer = function(e) {
     if (e !== undefined) {
       e.preventDefault();
@@ -194,10 +186,11 @@ $(document).ready(function(){
   $('#autocomplete-trigger').change(function() {
     if ($('#autocomplete-trigger').is(":checked")) {
       $('#ans').bind('input', ans_ac_input).bind('keydown', ans_ac_keydown);
+      $('#ans-shadow').removeClass("hidden");
     } else {
       $('#ans').unbind('input', ans_ac_input).unbind('keydown', ans_ac_keydown);
+      $('#ans-shadow').addClass("hidden");
     }
-    $('#ans-shadow').toggle();
   });
 
 });

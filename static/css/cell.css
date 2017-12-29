@@ -118,16 +118,24 @@ a:hover {
 .autocomplete .checkbox{
     margin-bottom: 6px;
 }
+.input-group {
+    position: relative;
+}
 .ans {
     background-color: transparent !important;
     width: 240px;
 }
 .ans-shadow {
+    display: inline-block;
     position: absolute !important;
     z-index: -1;
     background-color: #fff !important;
     color: #c8c8c8 !important;
     width: 240px;
+    left: 0;
+}
+.hidden {
+    opacity: 0;
 }
 .cell-info {
     color: #bbb;
@@ -294,6 +302,7 @@ a:hover {
     }
     .ans-shadow {
         width: 354px;
+        left: 3px;
     }
 }
 @media (max-width: 400px) {
