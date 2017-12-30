@@ -1,6 +1,9 @@
 <div class="counter-bar">
-    <div class="counter-bar-content">
+    <div class="counter-bar-content" id="round-1">
         <span>目前資料已經有 <span id="counter" class="counter-number"><?= $this->count ?></span><span> 筆，</span></span>
         <span class="second-line">還有 <span id="todo" class="counter-number"></span> 筆未輸入</span>
+    </div>
+    <div class="counter-bar-content" id="round-2" style="display:none">
+        <span>已經完成 <span id="round-finish-2" class="counter-number"></span> 輪，資料有 <span id="counter-2" class="counter-number"></span> 筆，距離完成第 <span id="round-todo-2" class="counter-number"></span> 輪，還有 <span id="todo-2" class="counter-number"></span> 筆需要輸入
     </div>
 </div>
