@@ -165,6 +165,7 @@ class ApiController extends Pix_Controller
                 'row' => $x,
                 'col' => $y,
                 'ans' => $list[count($list) - 1]['ans'],
+                'histories' => $list,
             ));
         }
         return $this->jsonp($json, $_GET['callback']);
