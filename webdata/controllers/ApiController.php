@@ -156,6 +156,16 @@ class ApiController extends Pix_Controller
                 'ans' => $cell->ans,
                 'histories' => $histories[$cell->x .'-' . $cell->y],
             ));
+            unset($histories[$cell->x . '-' . $cell->y]);
+        }
+        foreach ($histories as $x_y => $list) {
+            list($x, $y) = explode('-', $x_y);
+            array_push($json, array(
+                'page' => $page,
+                'row' => $x,
+                'col' => $y,
+                'ans' => $list[count($list) - 1]['ans'],
+            ));
         }
         return $this->jsonp($json, $_GET['callback']);
     }
