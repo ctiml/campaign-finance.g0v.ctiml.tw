@@ -163,7 +163,7 @@ a:hover {
     padding: 10px 17px;
     border: 1px solid #CECECE;
     height: 80px;
-    width: 296px;
+    width: 306px;
     font-weight: bold;
 }
 .related-title {
@@ -171,7 +171,7 @@ a:hover {
 }
 .related-link-text {
     display: inline-block;
-    width: 140px;
+    width: 150px;
     vertical-align: top;
     font-size: 16px;
 }
