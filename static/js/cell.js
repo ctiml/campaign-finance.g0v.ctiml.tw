@@ -193,4 +193,19 @@ $(document).ready(function(){
     }
   });
 
+  var triggerButton = function ( buttonId, e ) {
+        $( buttonId ).trigger('click');
+	if (e) e.preventDefault();
+  };
+  $('#ans').keydown(function(e) {
+    switch(e.which){
+      case 40:	//down
+        triggerButton( '#confirm', e );
+	break;
+      case 32:	//space
+        triggerButton( '#no-content', e );
+	break;
+    }
+  });
+
 });
